@@ -10,7 +10,8 @@ driver_Windows
 
 Пример для Linux:
 driver_linux_fedora
-Операционная система: Ubuntu
+Операционная система: fedora 
+Ядро: GNU/linux
 
 Дополнительные параметры:  
 
