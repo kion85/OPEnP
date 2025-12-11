@@ -1,0 +1,300 @@
+<style>
+/* Общие стили с плавностью и современным дизайном */
+
+:root {
+  --primary-color: #4CAF50;
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --accent-color: #ff9800;
+  --hover-color: #333;
+  --transition-duration: 0.3s;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+/* Основной контейнер */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Хедер */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #222;
+  transition: background-color var(--transition-duration);
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Логотип и меню */
+.logo h2 {
+  margin: 0;
+  font-weight: normal;
+  color: var(--primary-color);
+}
+
+.main-menu {
+  display: flex;
+  margin-left: 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color var(--transition-duration);
+}
+
+.menu-item:hover, .menu-item.active {
+  background-color: #333;
+}
+
+.menu-icon {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  margin-right: 10px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: color 0.3s;
+}
+
+.btn-icon:hover {
+  color: var(--accent-color);
+}
+
+.notification-bell {
+  position: relative;
+  font-size: 1.5em;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: color 0.3s;
+}
+
+.notification-bell:hover {
+  color: var(--accent-color);
+}
+
+.notification-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.8em;
+}
+
+/* Контент */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #1e1e1e;
+  transition: background-color 0.3s;
+}
+
+.page {
+  display: none;
+  opacity: 0;
+  transition: opacity var(--transition-duration);
+}
+
+.page.active {
+  display: block;
+  opacity: 1;
+}
+
+.page-title {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.widgets-grid, .customization-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Виджеты */
+.widget {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.widget:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+}
+
+.widget-icon {
+  font-size: 2em;
+}
+
+.widget-title {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.widget-value {
+  font-size: 1em;
+}
+
+/* Карточки */
+.card {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.card-header {
+  background-color: #3a3a3a;
+  padding: 10px 15px;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: var(--primary-color);
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #444;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  background-color: #555;
+}
+
+/* Кастомизация */
+.customization-grid {
+  gap: 20px;
+}
+
+.customization-card {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.customization-card:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+}
+
+.card-title {
+  font-size: 1.4em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: var(--accent-color);
+  text-align: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.btn-warning {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+.btn-warning:hover {
+  background-color: #e68a00;
+  transform: scale(1.05);
+}
+
+.btn-danger {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+/* Темы (подсветка при выборе) */
+button[data-theme] {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[data-theme]:hover {
+  opacity: 0.8;
+}
+</style>

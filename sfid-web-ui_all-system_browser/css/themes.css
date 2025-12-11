@@ -1,0 +1,394 @@
+/* themes.css - Система тем для SFID */
+
+:root {
+    /* Основные цвета по умолчанию (светлая тема) */
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --info-color: #17a2b8;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --bg-color: #ffffff;
+    --text-color: #333;
+    --border-color: #e1e8ed;
+    --shadow-color: rgba(0,0,0,0.1);
+    
+    /* Градиенты для современных эффектов */
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-warning: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    
+    /* Размеры и радиусы */
+    --border-radius: 10px;
+    --border-radius-sm: 5px;
+    --border-radius-lg: 15px;
+    --sidebar-width: 250px;
+    --header-height: 60px;
+    --footer-height: 40px;
+    
+    /* Транзишены для плавных эффектов */
+    --transition: all 0.3s ease;
+    --transition-fast: all 0.15s ease;
+    --transition-slow: all 0.5s ease;
+}
+
+/* ===== Светлая тема ===== */
+body.light-theme {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --info-color: #17a2b8;
+    --light-color: #ecf0f1;
+    --dark-color: #2c3e50;
+    --bg-color: #ffffff;
+    --text-color: #333;
+    --border-color: #e1e8ed;
+    --shadow-color: rgba(0,0,0,0.1);
+}
+
+/* ===== Темная тема ===== */
+body.dark-theme {
+    --primary-color: #34495e;
+    --secondary-color: #3498db;
+    --success-color: #27ae60;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --info-color: #17a2b8;
+    --light-color: #2c3e50;
+    --dark-color: #ecf0f1;
+    --bg-color: #1a1a1a;
+    --text-color: #ecf0f1;
+    --border-color: #34495e;
+    --shadow-color: rgba(0,0,0,0.3);
+    --gradient-primary: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+/* ===== Синяя тема ===== */
+body.blue-theme {
+    --primary-color: #1e3a5f;
+    --secondary-color: #3b82f6;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --info-color: #06b6d4;
+    --light-color: #f1f5f9;
+    --dark-color: #1e293b;
+    --bg-color: #ffffff;
+    --text-color: #334155;
+    --border-color: #e2e8f0;
+    --gradient-primary: linear-gradient(135deg, #1e3a5f 0%, #3b82f6 100%);
+}
+
+/* ===== Зеленая тема ===== */
+body.green-theme {
+    --primary-color: #065f46;
+    --secondary-color: #059669;
+    --success-color: #10b981;
+    --warning-color: #d97706;
+    --danger-color: #dc2626;
+    --info-color: #0891b2;
+    --light-color: #ecfdf5;
+    --dark-color: #064e3b;
+    --bg-color: #ffffff;
+    --text-color: #374151;
+    --border-color: #d1fae5;
+    --gradient-primary: linear-gradient(135deg, #065f46 0%, #059669 100%);
+}
+
+/* ===== Пурпурная тема ===== */
+body.purple-theme {
+    --primary-color: #5b21b6;
+    --secondary-color: #8b5cf6;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --info-color: #06b6d4;
+    --light-color: #faf5ff;
+    --dark-color: #4c1d95;
+    --bg-color: #ffffff;
+    --text-color: #374151;
+    --border-color: #e9d5ff;
+    --gradient-primary: linear-gradient(135deg, #5b21b6 0%, #8b5cf6 100%);
+}
+
+/* ===== Красная тема ===== */
+body.red-theme {
+    --primary-color: #7f1d1d;
+    --secondary-color: #dc2626;
+    --success-color: #059669;
+    --warning-color: #d97706;
+    --danger-color: #b91c1c;
+    --info-color: #0e7490;
+    --light-color: #fef2f2;
+    --dark-color: #7f1d1d;
+    --bg-color: #ffffff;
+    --text-color: #374151;
+    --border-color: #fecaca;
+    --gradient-primary: linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%);
+}
+
+/* ===== Оранжевая тема ===== */
+body.orange-theme {
+    --primary-color: #9a3412;
+    --secondary-color: #ea580c;
+    --success-color: #059669;
+    --warning-color: #d97706;
+    --danger-color: #dc2626;
+    --info-color: #0891b2;
+    --light-color: #fff7ed;
+    --dark-color: #7c2d12;
+    --bg-color: #ffffff;
+    --text-color: #374151;
+    --border-color: #fed7aa;
+    --gradient-primary: linear-gradient(135deg, #9a3412 0%, #ea580c 100%);
+}
+
+/* ===== Стальная тема ===== */
+body.steel-theme {
+    --primary-color: #374151;
+    --secondary-color: #6b7280;
+    --success-color: #059669;
+    --warning-color: #d97706;
+    --danger-color: #dc2626;
+    --info-color: #0891b2;
+    --light-color: #f9fafb;
+    --dark-color: #111827;
+    --bg-color: #ffffff;
+    --text-color: #374151;
+    --border-color: #e5e7eb;
+    --gradient-primary: linear-gradient(135deg, #374151 0%, #6b7280 100%);
+}
+
+/* ===== Розовая тема ===== */
+body.pink-theme {
+    --primary-color: #831843;
+    --secondary-color: #db2777;
+    --success-color: #059669;
+    --warning-color: #d97706;
+    --danger-color: #dc2626;
+    --info-color: #0891b2;
+    --light-color: #fdf2f8;
+    --dark-color: #831843;
+    --bg-color: #ffffff;
+    --text-color: #374151;
+    --border-color: #fbcfe8;
+    --gradient-primary: linear-gradient(135deg, #831843 0%, #db2777 100%);
+}
+
+/* ===== Киберпанк тема ===== */
+body.cyberpunk-theme {
+    --primary-color: #00ff41;
+    --secondary-color: #ff0099;
+    --success-color: #00ff88;
+    --warning-color: #ffaa00;
+    --danger-color: #ff0066;
+    --info-color: #00ddff;
+    --light-color: #0a0a12;
+    --dark-color: #00ff41;
+    --bg-color: #0a0a12;
+    --text-color: #00ff41;
+    --border-color: #ff0099;
+    --shadow-color: rgba(0, 255, 65, 0.3);
+    --gradient-primary: linear-gradient(135deg, #00ff41 0%, #ff0099 100%);
+}
+
+/* ===== Винтажная тема ===== */
+body.vintage-theme {
+    --primary-color: #8b4513;
+    --secondary-color: #cd853f;
+    --success-color: #228b22;
+    --warning-color: #daa520;
+    --danger-color: #b22222;
+    --info-color: #4682b4;
+    --light-color: #f5f5dc;
+    --dark-color: #8b4513;
+    --bg-color: #faebd7;
+    --text-color: #8b4513;
+    --border-color: #deb887;
+    --gradient-primary: linear-gradient(135deg, #8b4513 0%, #cd853f 100%);
+}
+
+/* ===== Высокий контраст ===== */
+body.high-contrast-theme {
+    --primary-color: #000000;
+    --secondary-color: #0000ff;
+    --success-color: #008000;
+    --warning-color: #ffa500;
+    --danger-color: #ff0000;
+    --info-color: #008080;
+    --light-color: #ffffff;
+    --dark-color: #000000;
+    --bg-color: #ffffff;
+    --text-color: #000;
+    --border-color: #000;
+    --shadow-color: rgba(0,0,0,0.5);
+    --gradient-primary: linear-gradient(135deg, #000 0%, #00f 100%);
+}
+
+/* ===== Минималистичная тема ===== */
+body.minimal-theme {
+    --border-radius: 0;
+    --border-radius-sm: 0;
+    --border-radius-lg: 0;
+    --primary-color: #333;
+    --secondary-color: #666;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --danger-color: #f44336;
+    --info-color: #2196f3;
+    --light-color: #f5f5f5;
+    --dark-color: #212121;
+}
+
+/* Общие стили для элементов */
+
+body {
+    background: var(--gradient-primary);
+    color: var(--text-color);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    transition: all 0.3s ease;
+}
+
+/* Основные компоненты */
+
+.header {
+    background-color: var(--primary-color);
+    padding: 15px 20px;
+    color: var(--light-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.content {
+    padding: 20px;
+    min-height: calc(100vh - 100px);
+}
+
+.page-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Карточки настроек */
+
+.customization-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.customization-card {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    width: 250px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 20px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.customization-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+.card-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+.card-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+.card-description {
+    font-size: 0.95em;
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Внутренние настройки */
+
+#additionalSettings {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: calc(var(--border-radius-lg));
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(8px);
+}
+#additionalSettings h3 {
+    margin-top: 0;
+    color: var(--text-color);
+}
+input[type="file"] {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+}
+button {
+    margin-top: 10px;
+    padding: 12px 20px;
+    font-size: 1em;
+    border-radius: calc(var(--border-radius));
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Анимации и интерактивные эффекты */
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px currentColor; }
+    50% { box-shadow: 0 0 20px currentColor; }
+    100% { box-shadow: 0 0 5px currentColor; }
+}
+body.cyberpunk-theme .btn-primary:hover {
+    animation: glow 0.5s infinite alternate;
+}
+
+/* Адаптивность */
+
+@media(max-width: 768px) {
+    .customization-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .customization-card {
+        width: 90%;
+    }
+}

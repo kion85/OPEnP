@@ -1,0 +1,435 @@
+{
+  "sfid_default_config": {
+    "version": "1.0.0",
+    "last_updated": "2023-05-18T12:00:00Z",
+    "description": "Конфигурация по умолчанию для SFID (System Functionality and Information Dashboard)",
+    
+    "application": {
+      "name": "SFID",
+      "version": "1.0.0",
+      "build": "20230518.1",
+      "author": "SFID Team",
+      "license": "MIT",
+      "repository": "https://github.com/sfid-team/sfid-app",
+      "auto_update": true,
+      "check_for_updates": true,
+      "update_channel": "stable"
+    },
+    
+    "ui_settings": {
+      "theme": "dark",
+      "language": "ru",
+      "font_size": "medium",
+      "animations": true,
+      "compact_mode": false,
+      "sidebar_position": "left",
+      "toolbar_visible": true,
+      "status_bar_visible": true,
+      "window_opacity": 100,
+      "background_blur": false,
+      "color_scheme": {
+        "primary": "#2196F3",
+        "secondary": "#FF4081",
+        "accent": "#00BCD4",
+        "background": "#1E1E1E",
+        "surface": "#2D2D2D",
+        "error": "#CF6679",
+        "success": "#4CAF50",
+        "warning": "#FF9800",
+        "info": "#2196F3"
+      },
+      "notifications": {
+        "enabled": true,
+        "position": "top-right",
+        "duration": 5000,
+        "sound": true
+      }
+    },
+    
+    "dashboard": {
+      "layout": "grid",
+      "grid_size": 12,
+      "widget_spacing": 10,
+      "max_widgets": 20,
+      "auto_refresh": true,
+      "default_refresh_rate": 5000,
+      "drag_and_drop": true,
+      "resize_widgets": true,
+      "default_widgets": [
+        "cpu_usage",
+        "memory_usage",
+        "disk_usage",
+        "network_traffic",
+        "vpn_status",
+        "quick_actions"
+      },
+      
+      "widget_settings": {
+        "cpu_usage": {
+          "showCores": false,
+          "showHistory": true,
+          "maxHistoryPoints": 60,
+          "warningThreshold": 80,
+          "criticalThreshold": 90
+        },
+        
+        "memory_usage": {
+          "showSwap": true,
+          "showDetails": false
+        },
+        
+        "disk_usage": {
+          "showAllDrives": false,
+          "selectedDrive": "C:"
+        },
+        
+        "network_traffic": {
+          "showUpload": true,
+          "showDownload": true,
+          "interface": "all"
+        },
+        
+        "vpn_status": {
+          "showTraffic": true,
+          "showLocation": true
+        },
+        
+        "quick_actions": {
+          "actions": [
+            "optimize",
+            "clean",
+            "vpn_connect",
+            "update_check"
+          ]
+        }
+      }
+    },
+    
+    "system_monitoring": {
+      "enabled": true,
+      "refresh_interval": 1000,
+      "track_history": true,
+      "history_length": 3600,
+      "alerts": {
+        "cpu_high": true,
+        "memory_low": true,
+        "disk_space": true,
+        "temperature": true,
+        "network_outage": true
+      },
+      
+      "performance": {
+        "cpu_monitoring": true,
+        "memory_monitoring": true,
+        "disk_monitoring": true,
+        "network_monitoring": true,
+        "gpu_monitoring": false
+      },
+      
+      "hardware": {
+        "temperature_monitoring": true,
+        "fan_speed_monitoring": false,
+        "battery_monitoring": true,
+        "smart_monitoring": false
+      }
+    },
+    
+    "wifi_settings": {
+      "general": {
+        "autoConnect": true,
+        "autoReconnect": true,
+        "randomMAC": false,
+        "powerSaving": true
+      },
+      
+      "security": {
+        "preferWPA3": true,
+        "detectRogueAP": true,
+        "warnOpenNetworks": true
+      },
+      
+      "advanced": {
+        "bandPreference": "auto",
+        "roamingAggressiveness": "medium",
+        "backgroundScanning": true,
+        "meteredConnection": false
+      }
+    },
+    
+    "vpn_settings": {
+      "general": {
+        "autoConnect": false,
+        "autoReconnect": true,
+        "killSwitch": true,
+        "splitTunneling": false,
+        "protocol": "OpenVPN",
+        "encryption": "AES-256",
+        "dnsLeakProtection": true,
+        "ipv6LeakProtection": true
+      },
+      
+      "servers": {
+        "preferredCountry": "RU",
+        "preferredProtocol": "UDP",
+        "port": 1194
+      },
+      
+      "default_servers": [
+        {
+          "id": "ru-mow-001",
+          "name": "Москва #1",
+          "country": "RU",
+          "city": "Москва",
+          "hostname": "ru-mow-01.sfid-vpn.com",
+          "ip": "95.163.200.10",
+          "load": 25,
+          "ping": 15,
+          "score": 95
+        },
+        {
+          "id": "ru-spb-001",
+          "name": "Санкт-Петербург #1",
+          "country": "RU",
+          "city": "Санкт-Петербург",
+          "hostname": "ru-spb-01.sfid-vpn.com",
+          "ip": "95.163.201.20",
+          "load": 30,
+          "ping": 18,
+          "score": 92
+        },
+        {
+          "id": "de-fra-001",
+          "name": "Франкфурт #1",
+          "country": "DE",
+          "city": "Франкфурт",
+          "hostname": "de-fra-01.sfid-vpn.com",
+          "ip": "185.100.100.30",
+          "load": 45,
+          "ping": 25,
+          "score": 85
+        },
+        {
+          "id": "us-nyc-001",
+          "name": "Нью-Йорк #1",
+          "country": "US",
+          "city": "Нью-Йорк",
+          "hostname": "us-nyc-01.sfid-vpn.com",
+          "ip": "198.51.100.40",
+          "load": 60,
+          "ping": 45,
+          "score": 75
+        }
+      ]
+    },
+    
+    "security_settings": {
+      "real_time_protection": true,
+      "cloud_protection": true,
+      "automatic_sample_submission": false,
+      "tamper_protection": true
+    },
+    
+    "notification_settings": {
+      "system_alerts": {
+        "enabled": true,
+        "critical": true,
+        "warning": true,
+      "info": false,
+        "sound": true
+      },
+      
+      "performance_alerts": {
+        "cpu": true,
+        "memory": true,
+        "disk": true,
+        "network": true
+      },
+      
+      "security_alerts": {
+        "enabled": true,
+        "threats": true,
+        "firewall": true,
+        "vpn": true
+      },
+      
+      "update_notifications": {
+        "enabled": true,
+        "system": true,
+        "software": true
+      }
+    },
+    
+    "backup_settings": {
+      "auto_backup": true,
+      "backup_interval": 86400000,
+      "max_backups": 10,
+      "backup_location": "local",
+      "cloud_backup": false,
+      "include_logs": true,
+      "include_settings": true,
+      "include_profiles": true,
+      "compression": true,
+      "encryption": false
+    },
+    
+    "privacy_settings": {
+      "telemetry": false,
+      "crash_reports": true,
+      "improvement_program": false
+    },
+    
+    "performance_settings": {
+      "auto_optimization": true,
+      "optimization_schedule": "daily",
+      "startup_optimization": true,
+      "memory_optimization": true,
+      "disk_cleanup": true,
+      "cleanup_schedule": "weekly",
+      "cleanup_items": [
+        "temp_files",
+        "cache",
+        "recycle_bin",
+        "logs"
+      ],
+      
+      "power_plan": "balanced",
+      "processor_scheduling": "background",
+      "visual_effects": "performance"
+    },
+    
+    "hotkeys": {
+      "show_dashboard": "Ctrl+Shift+D",
+      "quick_optimize": "Ctrl+Shift+O",
+      "toggle_vpn": "Ctrl+Shift+V",
+      "scan_wifi": "Ctrl+Shift+W",
+      "system_info": "Ctrl+Shift+I",
+      "performance_monitor": "Ctrl+Shift+P",
+      "wifi_manager": "Ctrl+Shift+N",
+      "toggle_theme": "Ctrl+Shift+T",
+      "refresh_all": "F5"
+    },
+    
+    "logging": {
+      "enabled": true,
+      "level": "info",
+      "max_file_size": 10485760,
+      "max_files": 5,
+      "include_timestamps": true,
+      "log_to_file": true,
+      "log_to_console": false,
+      "retention_days": 30
+    },
+    
+    "developer": {
+      "debug_mode": false,
+      "dev_tools": false,
+      "experimental_features": false,
+      "api_endpoints": {
+        "system_info": "/api/system",
+        "performance": "/api/performance",
+        "network": "/api/network",
+        "security": "/api/security"
+      }
+    },
+    
+    "compatibility": {
+      "windows": {
+        "min_version": "10",
+        "recommended": "11"
+      },
+      
+      "linux": {
+        "min_version": "Ubuntu 20.04",
+        "recommended": "Ubuntu 22.04"
+      },
+      
+      "macos": {
+        "min_version": "10.15",
+        "recommended": "12.0"
+      },
+      
+      "browsers": {
+        "chrome": "90+",
+        "firefox": "88+",
+        "edge": "90+",
+        "safari": "14+"
+      }
+    },
+    
+    "default_values": {
+      "cpu": {
+        "warning_threshold": 80,
+        "critical_threshold": 90,
+        "update_interval": 1000
+      },
+      
+      "memory": {
+        "warning_threshold": 85,
+        "critical_threshold": 95
+      },
+      
+      "disk": {
+        "warning_threshold": 90,
+        "critical_threshold": 95
+      },
+      
+      "temperature": {
+        "warning_threshold": 70,
+        "critical_threshold": 85
+      },
+      
+      "network": {
+        "speed_unit": "Mbps",
+        "update_interval": 1000
+      },
+      
+      "vpn": {
+        "reconnect_attempts": 3,
+        "reconnect_delay": 2000
+      },
+      
+      "widgets": {
+        "default_width": 2,
+        "default_height": 2,
+        "min_width": 1,
+        "min_height": 1,
+        "max_width": 6,
+        "max_height": 6
+      }
+    },
+    
+    "feature_flags": {
+      "advanced_networking": false,
+      "ai_optimizations": false,
+      "cloud_sync": false,
+      "multi_device": false,
+      "enterprise_features": false
+    },
+    
+    "api_keys": {
+      "ipinfo": "",
+      "virustotal": "",
+      "weather": ""
+    },
+    
+    "customization": {
+      "custom_css": "",
+      "custom_js": "",
+      "custom_widgets": [],
+      "custom_themes": []
+    },
+    
+    "maintenance": {
+      "auto_cleanup": true,
+      "cleanup_interval": 604800000,
+      "database_optimization": true,
+      "cache_clearing": true
+    },
+    
+    "legal": {
+      "privacy_policy": "https://sfid-app.com/privacy",
+      "terms_of_service": "https://sfid-app.com/terms",
+      "eula": "https://sfid-app.com/eula"
+    }
+  }
+}

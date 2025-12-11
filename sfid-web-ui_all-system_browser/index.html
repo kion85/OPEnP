@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SF-for Internet Distribution (SFID)</title>
+<style>
+  :root {
+    --main-color: #007bff;
+    --main-font: Arial;
+  }
+  body {
+    font-family: var(--main-font);
+    background-color: #fff;
+    color: #000;
+    transition: all 0.3s ease;
+  }
+  body.dark-theme {
+    background-color: #222;
+    color: #eee;
+  }
+  /* Обои */
+  body {
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Стиль страниц */
+.page {
+  display: none;
+  padding: 20px;
+}
+.page.active {
+  display: block;
+}
+h2.page-title {
+  margin-top: 20px;
+}
+.widgets-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.widget {
+  border: 1px solid var(--main-color);
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  background: rgba(255,255,255,0.1);
+}
+.widget-icon {
+  font-size: 24px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #444;
+  padding: 10px;
+  color: #fff;
+}
+.menu-item {
+  display: inline-block;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.menu-item.active {
+  background: #666;
+}
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer {
+  margin-top: 20px;
+  padding: 10px;
+  background: #444;
+  color: #fff;
+  text-align: center;
+}
+
+/* Интерактивные элементы */
+button {
+  margin: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  background: var(--main-color);
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+}
+button:hover {
+  opacity: 0.9;
+}
+input[type="color"], select, input[type="file"], input[type="text"], input[type="password"], input[type="datetime-local"], input[type="number"] {
+  margin: 5px 0;
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+
+<!-- Аудио для теста -->
+<audio id="connectSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3" preload="auto"></audio>
+<audio id="errorSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3" preload="auto"></audio>
+<audio id="buttonSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+
+<button id="testButton">Тестировать звук</button>
+
+<!-- Заголовок -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">
+      <h2>SFID</h2>
+      <span>v1.0.0</span>
+    </div>
+    <nav>
+      <div class="menu-item active" data-page="dashboard">Панель управления</div>
+      <div class="menu-item" data-page="network">Сеть</div>
+      <div class="menu-item" data-page="wifi">Wi-Fi</div>
+      <div class="menu-item" data-page="firewall">Брандмауэр</div>
+      <div class="menu-item" data-page="vpn">VPN</div>
+      <div class="menu-item" data-page="qos">QoS</div>
+      <div class="menu-item" data-page="nas">USB/NAS</div>
+      <div class="menu-item" data-page="mobile">Моб. сети</div>
+      <div class="menu-item" data-page="iot">IoT</div>
+      <div class="menu-item" data-page="customization">Кастомизация</div>
+      <div class="menu-item" data-page="system">Система</div>
+    </nav>
+  </div>
+  <div class="header-right">
+    <div>Гость</div>
+    <button id="themeToggle" title="Переключить тему">🌙</button>
+    <div id="notificationBell">🔔<span class="notification-count">3</span></div>
+  </div>
+</div>
+
+<!-- Контент -->
+<div class="content">
+  <div class="content-wrapper">
+
+    <!-- Панель управления -->
+    <div class="page active" id="dashboard">
+      <h2 class="page-title">Панель управления SFID</h2>
+      <div class="widgets-grid">
+        <div class="widget"><div class="widget-icon">🌐</div><div class="widget-content"><div class="widget-title">Сетевое подключение</div><div class="widget-value">Активно</div></div></div>
+        <div class="widget"><div class="widget-icon">📶</div><div class="widget-content"><div class="widget-title">Wi-Fi сеть</div><div class="widget-value">SFID-Network</div></div></div>
+        <div class="widget"><div class="widget-icon">🛡️</div><div class="widget-content"><div class="widget-title">Защита</div><div class="widget-value">Включена</div></div></div>
+        <div class="widget"><div class="widget-icon">⚡</div><div class="widget-content"><div class="widget-title">Скорость</div><div class="widget-value">100 Мбит/с</div></div></div>
+        <div class="widget"><div class="widget-icon">💾</div><div class="widget-content"><div class="widget-title">Память</div><div class="widget-value">64%</div></div></div>
+        <div class="widget"><div class="widget-icon">📱</div><div class="widget-content"><div class="widget-title">Устройства</div><div class="widget-value">8 онлайн</div></div></div>
+      </div>
+    </div>
+
+    <!-- Настройки сети -->
+    <div class="page" id="network">
+      <h2 class="page-title">Настройки сети</h2>
+      <div class="section">
+        <h3>Общие параметры</h3>
+        <form id="networkForm">
+          <label>Тип подключения:
+            <select name="connection_type">
+              <option value="dhcp">Динамический IP (DHCP)</option>
+              <option value="static">Статический IP</option>
+            </select>
+          </label><br>
+          <label>IP-адрес:
+            <input type="text" name="ip_address" placeholder="192.168.1.2" />
+          </label><br>
+          <label>Маска подсети:
+            <input type="text" name="subnet_mask" placeholder="255.255.255.0" />
+          </label><br>
+          <label>Шлюз:
+            <input type="text" name="gateway" placeholder="192.168.1.1" />
+          </label><br>
+          <label>DNS-серверы:
+            <input type="text" name="dns" placeholder="8.8.8.8, 8.8.4.4" />
+          </label><br>
+          <button type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Настройки Wi-Fi -->
+    <div class="page" id="wifi">
+      <h2 class="page-title">Настройки Wi-Fi</h2>
+      <div class="section">
+        <h3>Основные параметры</h3>
+        <form id="wifiForm">
+          <label>Имя сети (SSID):
+            <input type="text" name="ssid" placeholder="МояWiFi" />
+          </label><br>
+          <label>Безопасность:
+            <select name="security">
+              <option value="wpa2">WPA2</option>
+              <option value="wpa3">WPA3</option>
+              <option value="none">Без защиты</option>
+            </select>
+          </label><br>
+          <label>Пароль:
+            <input type="password" name="password" placeholder="Введите пароль" />
+          </label><br>
+          <label>Канал:
+            <select name="channel">
+              <option value="1">Канал 1</option>
+              <option value="6">Канал 6</option>
+              <option value="11">Канал 11</option>
+            </select>
+          </label><br>
+          <button type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Брандмауэр -->
+    <div class="page" id="firewall">
+      <h2 class="page-title">Настройки брандмауэра</h2>
+      <div class="section">
+        <h3>Правила фильтрации</h3>
+        <form>
+          <h4>Добавить правило</h4>
+          <label>Тип:
+            <select name="rule_type">
+              <option value="allow">Разрешить</option>
+              <option value="deny">Запретить</option>
+            </select>
+          </label><br>
+          <label>Протокол:
+            <select name="protocol">
+              <option value="tcp">TCP</option>
+              <option value="udp">UDP</option>
+              <option value="both">Оба</option>
+            </select>
+          </label><br>
+          <label>Порт:
+            <input type="number" name="port" placeholder="80" />
+          </label><br>
+          <label>IP-адрес источника:
+            <input type="text" name="source_ip" placeholder="Любой или IP" />
+          </label><br>
+          <button type="button" id="addFirewallRule">Добавить правило</button>
+        </form>
+        <h4>Текущие правила</h4>
+        <ul id="firewallRulesList"></ul>
+      </div>
+    </div>
+
+    <!-- VPN -->
+    <div class="page" id="vpn">
+      <h2 class="page-title">Настройки VPN</h2>
+      <div class="section">
+        <button id="createVPN">Создать VPN</button>
+        <h4>Существующие подключения</h4>
+        <ul id="vpnList">
+          <li>VPN 1 — Статус: подключено</li>
+          <li>VPN 2 — Статус: отключено</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- QoS -->
+    <div class="page" id="qos">
+      <h2 class="page-title">Настройки QoS</h2>
+      <div class="section">
+        <h3>Приоритет трафика</h3>
+        <form id="qosForm">
+          <label>Устройство/приложение:
+            <input type="text" name="device_app" placeholder="Skype, Игра" />
+          </label><br>
+          <label>Приоритет:
+            <select name="priority">
+              <option value="high">Высокий</option>
+              <option value="medium">Средний</option>
+              <option value="low">Низкий</option>
+            </select>
+          </label><br>
+          <button type="submit">Добавить правило</button>
+        </form>
+        <h4>Текущие правила</h4>
+        <ul id="qosRules"></ul>
+      </div>
+    </div>
+
+    <!-- USB/NAS -->
+    <div class="page" id="nas">
+      <h2 class="page-title">USB/NAS</h2>
+      <div class="section">
+        <button id="connectUSB">Подключить USB</button>
+        <button id="configureNAS">Настроить NAS</button>
+        <h4>Общие параметры</h4>
+        <ul>
+          <li>Подключенные устройства: USB 1TB</li>
+          <li>Общий доступ: Включен</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Мобильные сети -->
+    <div class="page" id="mobile">
+      <h2 class="page-title">Мобильные сети</h2>
+      <div class="section">
+        <form id="mobileForm">
+          <label>Слот SIM:
+            <select name="sim_slot">
+              <option value="1">SIM 1</option>
+              <option value="2">SIM 2</option>
+            </select>
+          </label><br>
+          <label>APN:
+            <input type="text" name="apn" placeholder="internet" />
+          </label><br>
+          <label>Тип сети:
+            <select name="network_type">
+              <option value="3g">3G</option>
+              <option value="4g">4G</option>
+              <option value="5g">5G</option>
+            </select>
+          </label><br>
+          <button type="submit">Подключить</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- IoT -->
+    <div class="page" id="iot">
+      <h2 class="page-title">IoT</h2>
+      <div class="section">
+        <button id="addIoTDevice">Добавить устройство</button>
+        <h4>Подключённые устройства</h4>
+        <ul>
+          <li>Термостат — статус: активен</li>
+          <li>Замок — статус: активен</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Кастомизация -->
+    <div class="page" id="customization">
+      <h2 class="page-title">Кастомизация интерфейса</h2>
+      <div class="section">
+        <h3>Персонализация</h3>
+        <!-- Цвет -->
+        <label>Выберите тему (цвет):</label>
+        <select id="colorThemeSelect">
+          <option value="#ffffff">Белая (светлая)</option>
+          <option value="#007bff">Синяя</option>
+          <option value="#222222">Темная</option>
+          <option value="#28a745">Зеленая</option>
+          <option value="#ff5733">Оранжевая</option>
+          <option value="#ffc107">Желтая</option>
+          <option value="#6f42c1">Пурпурная</option>
+        </select><br><br>
+        <!-- Обои -->
+        <label>Обои (фото):</label>
+        <input type="file" id="wallpaperUploader" accept="image/*" /><br><br>
+        <!-- Музыка -->
+        <label>Фоновая музыка:</label>
+        <input type="file" id="musicUploader" accept="audio/*" /><br><br>
+        <!-- Воспроизведение -->
+        <button id="playMusicBtn">▶️ Воспроизвести музыку</button>
+        <button id="stopMusicBtn">⏹️ Остановить музыку</button><br><br>
+        <!-- Цвет -->
+        <label>Цвет текста:</label>
+        <input type="color" id="customColorScheme" value="#007bff" /><br><br>
+        <!-- Шрифт -->
+        <label>Шрифт:</label>
+        <select id="customFontSelect">
+          <option value="Arial">Arial</option>
+          <option value="'Helvetica Neue', Helvetica">Helvetica Neue</option>
+          <option value="'Times New Roman', serif">Times New Roman</option>
+          <option value="'Courier New', monospace">Courier New</option>
+          <option value="Georgia">Georgia</option>
+        </select><br><br>
+        <!-- Сохранить -->
+        <button id="saveCustomizationBtn">Сохранить настройки</button>
+      </div>
+    </div>
+
+    <!-- Настройки системы -->
+    <div class="page" id="system">
+      <h2 class="page-title">Настройки системы</h2>
+      <div class="section">
+        <h3>Общие параметры</h3>
+        <form>
+          <button type="button">Проверить обновления</button>
+          <button type="button">Обновить систему</button>
+          <button type="button">Резервное копирование</button>
+          <button type="button">Восстановление</button>
+          <br><br>
+          <label>Время и дата:
+            <input type="datetime-local" />
+          </label><br><br>
+          <button type="submit">Сохранить настройки</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Футер -->
+    <div class="footer">
+      <p>SF-for Internet Distribution (SFID) v1.0.0 | <a href="#" style="color:white;">Документация</a></p>
+    </div>
+
+    <!-- Уведомление -->
+    <div class="notification" id="notification" style="display:none; position:fixed; top:10px; right:10px; background:#333; color:#fff; padding:10px; border-radius:4px;"></div>
+  </div>
+</div>
+
+<!-- Скрипты -->
+<script>
+const notification = document.getElementById('notification');
+function showNotification(text) {
+  notification.innerText = text;
+  notification.style.display = 'block';
+  setTimeout(() => { notification.style.display = 'none'; }, 3000);
+}
+
+// Воспроизвести звук при клике
+document.getElementById('testButton').addEventListener('click', () => {
+  document.getElementById('buttonSound').play().catch(()=>{});
+});
+// Переключение страниц
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    const pageId = item.getAttribute('data-page');
+    document.querySelectorAll('.page').forEach(p => {
+      p.id === pageId ? p.classList.add('active') : p.classList.remove('active');
+    });
+    document.getElementById('buttonSound').play().catch(()=>{});
+  });
+});
+
+// Логика кастомизации
+const themeToggleBtn = document.getElementById('themeToggle');
+const body = document.body;
+
+function saveSettings() {
+  localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
+  localStorage.setItem('color_scheme', document.querySelector('#customColorScheme').value);
+  localStorage.setItem('font', document.querySelector('#customFontSelect').value);
+  localStorage.setItem('bg_image', document.body.style.backgroundImage);
+  localStorage.setItem('wallpaper', window._wallpaper || '');
+  localStorage.setItem('music', window._music || '');
+}
+
+function loadSettings() {
+  const theme = localStorage.getItem('theme');
+  if (theme === 'dark') {
+    body.classList.add('dark-theme');
+  } else {
+    body.classList.remove('dark-theme');
+  }
+  const color = localStorage.getItem('color_scheme');
+  if (color) {
+    document.querySelector('#customColorScheme').value = color;
+    document.documentElement.style.setProperty('--main-color', color);
+  }
+  const font = localStorage.getItem('font');
+  if (font) {
+    document.querySelector('#customFontSelect').value = font;
+    document.documentElement.style.setProperty('--main-font', font);
+  }
+  const bgImage = localStorage.getItem('bg_image');
+  if (bgImage) {
+    document.body.style.backgroundImage = bgImage;
+  }
+}
+loadSettings();
+
+// Тема
+document.getElementById('themeToggle').addEventListener('click', () => {
+  if (body.classList.contains('dark-theme')) {
+    body.classList.remove('dark-theme');
+    localStorage.setItem('theme', 'light');
+  } else {
+    body.classList.add('dark-theme');
+    localStorage.setItem('theme', 'dark');
+  }
+  document.getElementById('buttonSound').play().catch(()=>{});
+});
+
+// Цветовая схема и шрифт
+document.querySelector('#customColorScheme').addEventListener('input', e => {
+  document.documentElement.style.setProperty('--main-color', e.target.value);
+});
+document.querySelector('#customFontSelect').addEventListener('change', e => {
+  document.documentElement.style.setProperty('--main-font', e.target.value);
+});
+
+// Кнопка сохранить
+document.getElementById('saveCustomizationBtn').addEventListener('click', () => {
+  saveSettings();
+  alert('Настройки сохранены!');
+});
+
+// =================== ВЛОЖЕННЫЙ КЛАСС ===================
+class SFID {
+  constructor() {
+    this._wallpaper = '';
+    this._music = '';
+    this._audio = null;
+    // Восстановление из localStorage
+    const wp = localStorage.getItem('wallpaper');
+    if (wp) {
+      this._wallpaper = wp;
+      document.body.style.backgroundImage = `url(${this._wallpaper})`;
+    }
+    const ms = localStorage.getItem('music');
+    if (ms) {
+      this._music = ms;
+      this.playMusic(this._music);
+    }
+  }
+
+  setWallpaper(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this._wallpaper = reader.result;
+      localStorage.setItem('wallpaper', this._wallpaper);
+      document.body.style.backgroundImage = `url(${this._wallpaper})`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  setMusic(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this._music = reader.result;
+      localStorage.setItem('music', this._music);
+      this.playMusic(this._music);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  playMusic(url) {
+    if (this._audio) {
+      this._audio.pause();
+    }
+    this._audio = new Audio(url);
+    const vol = localStorage.getItem('volume') || '70';
+    this._audio.volume = parseInt(vol) / 100;
+    this._audio.loop = true;
+    this._audio.play().catch(() => {
+      alert('Не удалось воспроизвести музыку');
+    });
+  }
+
+  stopMusic() {
+    if (this._audio) {
+      this._audio.pause();
+      this._audio.currentTime = 0;
+    }
+  }
+}
+window.sfid = new SFID();
+
+// Обработчики
+document.getElementById('wallpaperUploader').addEventListener('change', e => {
+  if (e.target.files[0]) {
+    window.sfid.setWallpaper(e.target.files[0]);
+  }
+});
+document.getElementById('musicUploader').addEventListener('change', e => {
+  if (e.target.files[0]) {
+    window.sfid.setMusic(e.target.files[0]);
+  }
+});
+document.getElementById('playMusicBtn').addEventListener('click', () => {
+  if (window.sfid._music) {
+    window.sfid.playMusic(window.sfid._music);
+  }
+});
+document.getElementById('stopMusicBtn').addEventListener('click', () => {
+  window.sfid.stopMusic();
+});
+
+// Цвет и шрифт
+document.querySelector('#customColorScheme').addEventListener('input', e => {
+  document.documentElement.style.setProperty('--main-color', e.target.value);
+});
+document.querySelector('#customFontSelect').addEventListener('change', e => {
+  document.documentElement.style.setProperty('--main-font', e.target.value);
+});
+</script>
+</body>
+</html>
