@@ -5,104 +5,327 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>SF-for Internet Distribution (SFID)</title>
 <style>
-  :root {
-    --main-color: #007bff;
-    --main-font: Arial;
-  }
-  body {
-    font-family: var(--main-font);
-    background-color: #fff;
-    color: #000;
-    transition: all 0.3s ease;
-  }
-  body.dark-theme {
-    background-color: #222;
-    color: #eee;
-  }
-  /* Обои */
-  body {
-    background-size: cover;
-    background-position: center;
-  }
+/* Общие стили с плавностью и современным дизайном */
 
-  /* Стиль страниц */
-.page {
-  display: none;
-  padding: 20px;
+:root {
+  --primary-color: #4CAF50;
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --accent-color: #ff9800;
+  --hover-color: #333;
+  --transition-duration: 0.3s;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.page.active {
-  display: block;
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
 }
-h2.page-title {
-  margin-top: 20px;
-}
-.widgets-grid {
+
+/* Основной контейнер */
+.main-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100vh;
 }
-.widget {
-  border: 1px solid var(--main-color);
-  padding: 10px;
-  margin: 5px;
-  border-radius: 5px;
-  background: rgba(255,255,255,0.1);
-}
-.widget-icon {
-  font-size: 24px;
-}
+
+/* Хедер */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #444;
-  padding: 10px;
-  color: #fff;
+  padding: 10px 20px;
+  background-color: #222;
+  transition: background-color var(--transition-duration);
 }
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Логотип и меню */
+.logo h2 {
+  margin: 0;
+  font-weight: normal;
+  color: var(--primary-color);
+}
+
+.main-menu {
+  display: flex;
+  margin-left: 20px;
+}
+
 .menu-item {
-  display: inline-block;
-  padding: 5px 10px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color var(--transition-duration);
 }
-.menu-item.active {
-  background: #666;
+
+.menu-item:hover, .menu-item.active {
+  background-color: #333;
 }
-.content-wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
+
+.menu-icon {
+  margin-right: 8px;
+  font-size: 1.2em;
 }
-.footer {
-  margin-top: 20px;
-  padding: 10px;
-  background: #444;
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  margin-right: 10px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
   color: #fff;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: color 0.3s;
+}
+
+.btn-icon:hover {
+  color: var(--accent-color);
+}
+
+.notification-bell {
+  position: relative;
+  font-size: 1.5em;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: color 0.3s;
+}
+
+.notification-bell:hover {
+  color: var(--accent-color);
+}
+
+.notification-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.8em;
+}
+
+/* Контент */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #1e1e1e;
+  transition: background-color 0.3s;
+}
+
+.page {
+  display: none;
+  opacity: 0;
+  transition: opacity var(--transition-duration);
+}
+
+.page.active {
+  display: block;
+  opacity: 1;
+}
+
+.page-title {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.widgets-grid, .customization-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+/* Виджеты */
+.widget {
+  background-color: #2a2a2a;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.widget:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+}
+
+.widget-icon {
+  font-size: 2em;
+}
+
+.widget-title {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.widget-value {
+  font-size: 1em;
+}
+
+/* Карточки */
+.card {
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.card-header {
+  background-color: #3a3a3a;
+  padding: 10px 15px;
+  font-weight: bold;
+  font-size: 1.2em;
+  color: var(--primary-color);
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #444;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  background-color: #555;
+}
+
+/* Кастомизация */
+.customization-grid {
+  gap: 20px;
+}
+
+.customization-card {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.customization-card:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+}
+
+.card-title {
+  font-size: 1.4em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: var(--accent-color);
   text-align: center;
 }
 
-/* Интерактивные элементы */
-button {
-  margin: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  background: var(--main-color);
+.btn {
+  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
   color: #fff;
 }
-button:hover {
-  opacity: 0.9;
+
+.btn-primary:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
 }
-input[type="color"], select, input[type="file"], input[type="text"], input[type="password"], input[type="datetime-local"], input[type="number"] {
-  margin: 5px 0;
-  padding: 5px;
+
+.btn-warning {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+.btn-warning:hover {
+  background-color: #e68a00;
+  transform: scale(1.05);
+}
+
+.btn-danger {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+/* Темы (подсветка при выборе) */
+button[data-theme] {
+  margin: 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[data-theme]:hover {
+  opacity: 0.8;
+}
+
+/* Модальные окна */
+.modal {
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 </style>
 </head>
 <body>
 
 <!-- Аудио для теста -->
-<audio id="connectSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3" preload="auto"></audio>
-<audio id="errorSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3" preload="auto"></audio>
-<audio id="buttonSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+<audio id="connectSound" src="assets/sounds/connect.mp3" preload="auto"></audio>
+<audio id="errorSound" src="assets/sounds/error.mp3" preload="auto"></audio>
+<audio id="buttonSound" src="assets/sounds/button.mp3" preload="auto"></audio>
 
 <button id="testButton">Тестировать звук</button>
 
@@ -111,7 +334,7 @@ input[type="color"], select, input[type="file"], input[type="text"], input[type=
   <div class="header-left">
     <div class="logo">
       <h2>SFID</h2>
-      <span>v1.0.0</span>
+      <span>v1.0.9</span>
     </div>
     <nav>
       <div class="menu-item active" data-page="dashboard">Панель управления</div>
@@ -396,11 +619,52 @@ input[type="color"], select, input[type="file"], input[type="text"], input[type=
 
     <!-- Футер -->
     <div class="footer">
-      <p>SF-for Internet Distribution (SFID) v1.0.0 | <a href="#" style="color:white;">Документация</a></p>
+      <p>SF-for Internet Distribution (SFID) v1.0.9 | <a href="#" style="color:white;">Документация</a></p>
     </div>
+  </div>
+</div>
 
-    <!-- Уведомление -->
-    <div class="notification" id="notification" style="display:none; position:fixed; top:10px; right:10px; background:#333; color:#fff; padding:10px; border-radius:4px;"></div>
+<!-- Модальные окна для USB и NAS -->
+<div id="usbModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h3>Настройки USB-устройства</h3>
+    <div id="usbStatusModal">Нет подключенного устройства</div>
+    <button id="detectUSBModal">Обновить статус USB</button>
+    <form id="usbSettingsForm">
+      <label>Имя устройства:
+        <input type="text" name="usb_name" placeholder="USB-накопитель" />
+      </label><br>
+      <label>Общий доступ:
+        <select name="share">
+          <option value="enabled">Включен</option>
+          <option value="disabled">Выключен</option>
+        </select>
+      </label><br>
+      <button type="submit">Сохранить</button>
+      <button type="button" id="closeUsbModal">Закрыть</button>
+    </form>
+  </div>
+</div>
+
+<div id="nasModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h3>Настройки NAS</h3>
+    <form id="nasSettingsForm">
+      <label>Имя устройства:
+        <input type="text" name="nas_name" placeholder="Мой NAS" />
+      </label><br>
+      <label>Общий доступ:
+        <select name="nas_share">
+          <option value="enabled">Включен</option>
+          <option value="disabled">Выключен</option>
+        </select>
+      </label><br>
+      <label>Объем диска:
+        <input type="text" name="disk_size" placeholder="1TB" />
+      </label><br>
+      <button type="submit">Сохранить настройки</button>
+      <button type="button" id="closeNasModal">Закрыть</button>
+    </form>
   </div>
 </div>
 
@@ -430,157 +694,50 @@ document.querySelectorAll('.menu-item').forEach(item => {
   });
 });
 
-// Логика кастомизации
-const themeToggleBtn = document.getElementById('themeToggle');
-const body = document.body;
+// ======= Логика модальных окон для USB и NAS =======
+// Открытие модальных окон
+document.querySelector('#connectUSB').addEventListener('click', () => {
+  document.getElementById('usbModal').style.display = 'flex';
+  updateUsbStatusInModal();
+});
+document.querySelector('#configureNAS').addEventListener('click', () => {
+  document.getElementById('nasModal').style.display = 'flex';
+});
 
-function saveSettings() {
-  localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
-  localStorage.setItem('color_scheme', document.querySelector('#customColorScheme').value);
-  localStorage.setItem('font', document.querySelector('#customFontSelect').value);
-  localStorage.setItem('bg_image', document.body.style.backgroundImage);
-  localStorage.setItem('wallpaper', window._wallpaper || '');
-  localStorage.setItem('music', window._music || '');
-}
+// Закрытие модальных окон
+document.querySelector('#closeUsbModal').addEventListener('click', () => {
+  document.getElementById('usbModal').style.display = 'none';
+});
+document.querySelector('#closeNasModal').addEventListener('click', () => {
+  document.getElementById('nasModal').style.display = 'none';
+});
 
-function loadSettings() {
-  const theme = localStorage.getItem('theme');
-  if (theme === 'dark') {
-    body.classList.add('dark-theme');
+// Обновление статуса USB внутри модалки
+function updateUsbStatusInModal() {
+  const usbStatusDiv = document.getElementById('usbStatusModal');
+  const hasUSB = Math.random() > 0.3; // симуляция
+  if (hasUSB) {
+    usbStatusDiv.innerText = 'USB-устройство подключено: USB-накопитель 1TB';
   } else {
-    body.classList.remove('dark-theme');
-  }
-  const color = localStorage.getItem('color_scheme');
-  if (color) {
-    document.querySelector('#customColorScheme').value = color;
-    document.documentElement.style.setProperty('--main-color', color);
-  }
-  const font = localStorage.getItem('font');
-  if (font) {
-    document.querySelector('#customFontSelect').value = font;
-    document.documentElement.style.setProperty('--main-font', font);
-  }
-  const bgImage = localStorage.getItem('bg_image');
-  if (bgImage) {
-    document.body.style.backgroundImage = bgImage;
+    usbStatusDiv.innerText = 'Нет подключенного устройства';
   }
 }
-loadSettings();
 
-// Тема
-document.getElementById('themeToggle').addEventListener('click', () => {
-  if (body.classList.contains('dark-theme')) {
-    body.classList.remove('dark-theme');
-    localStorage.setItem('theme', 'light');
-  } else {
-    body.classList.add('dark-theme');
-    localStorage.setItem('theme', 'dark');
-  }
-  document.getElementById('buttonSound').play().catch(()=>{});
+// Обработка формы USB
+document.getElementById('usbSettingsForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  alert('Настройки USB сохранены!');
+  document.getElementById('usbModal').style.display = 'none';
+});
+// Обработка формы NAS
+document.getElementById('nasSettingsForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  alert('Настройки NAS сохранены!');
+  document.getElementById('nasModal').style.display = 'none';
 });
 
-// Цветовая схема и шрифт
-document.querySelector('#customColorScheme').addEventListener('input', e => {
-  document.documentElement.style.setProperty('--main-color', e.target.value);
-});
-document.querySelector('#customFontSelect').addEventListener('change', e => {
-  document.documentElement.style.setProperty('--main-font', e.target.value);
-});
-
-// Кнопка сохранить
-document.getElementById('saveCustomizationBtn').addEventListener('click', () => {
-  saveSettings();
-  alert('Настройки сохранены!');
-});
-
-// =================== ВЛОЖЕННЫЙ КЛАСС ===================
-class SFID {
-  constructor() {
-    this._wallpaper = '';
-    this._music = '';
-    this._audio = null;
-    // Восстановление из localStorage
-    const wp = localStorage.getItem('wallpaper');
-    if (wp) {
-      this._wallpaper = wp;
-      document.body.style.backgroundImage = `url(${this._wallpaper})`;
-    }
-    const ms = localStorage.getItem('music');
-    if (ms) {
-      this._music = ms;
-      this.playMusic(this._music);
-    }
-  }
-
-  setWallpaper(file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this._wallpaper = reader.result;
-      localStorage.setItem('wallpaper', this._wallpaper);
-      document.body.style.backgroundImage = `url(${this._wallpaper})`;
-    };
-    reader.readAsDataURL(file);
-  }
-
-  setMusic(file) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      this._music = reader.result;
-      localStorage.setItem('music', this._music);
-      this.playMusic(this._music);
-    };
-    reader.readAsDataURL(file);
-  }
-
-  playMusic(url) {
-    if (this._audio) {
-      this._audio.pause();
-    }
-    this._audio = new Audio(url);
-    const vol = localStorage.getItem('volume') || '70';
-    this._audio.volume = parseInt(vol) / 100;
-    this._audio.loop = true;
-    this._audio.play().catch(() => {
-      alert('Не удалось воспроизвести музыку');
-    });
-  }
-
-  stopMusic() {
-    if (this._audio) {
-      this._audio.pause();
-      this._audio.currentTime = 0;
-    }
-  }
-}
-window.sfid = new SFID();
-
-// Обработчики
-document.getElementById('wallpaperUploader').addEventListener('change', e => {
-  if (e.target.files[0]) {
-    window.sfid.setWallpaper(e.target.files[0]);
-  }
-});
-document.getElementById('musicUploader').addEventListener('change', e => {
-  if (e.target.files[0]) {
-    window.sfid.setMusic(e.target.files[0]);
-  }
-});
-document.getElementById('playMusicBtn').addEventListener('click', () => {
-  if (window.sfid._music) {
-    window.sfid.playMusic(window.sfid._music);
-  }
-});
-document.getElementById('stopMusicBtn').addEventListener('click', () => {
-  window.sfid.stopMusic();
-});
-
-// Цвет и шрифт
-document.querySelector('#customColorScheme').addEventListener('input', e => {
-  document.documentElement.style.setProperty('--main-color', e.target.value);
-});
-document.querySelector('#customFontSelect').addEventListener('change', e => {
-  document.documentElement.style.setProperty('--main-font', e.target.value);
-});
+// Обновлять статус USB при открытии
+document.querySelector('#detectUSB').addEventListener('click', updateUsbStatusInModal);
 </script>
 </body>
 </html>
