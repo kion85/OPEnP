@@ -1,1078 +1,1869 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SF-for Internet Distribution (SFID)</title>
-<style>
-:root {
-  --primary-color: #4CAF50;
-  --background-color: #121212;
-  --text-color: #ffffff;
-  --accent-color: #ff9800;
-  --hover-color: #333;
-  --transition-duration: 0.3s;
-  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SF-for Internet Distribution (SFID) - Настройки Роутера</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #f0f4f8;
+            --secondary-bg: #ffffff;
+            --accent-color: #007bff;
+            --accent-light: #66b3ff;
+            --text-color: #2c3e50;
+            --text-light: #5a6a7c;
+            --border-color: #e0e6ed;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --border-radius: 8px;
+            --font-family: 'Roboto', sans-serif;
+            --header-bg: linear-gradient(to right, #007bff, #0056b3);
+            --nav-item-hover: rgba(0, 123, 255, 0.1);
+            --active-nav-item: var(--accent-light);
+            --button-bg: var(--accent-color);
+            --button-hover: #0056b3;
+            --success-color: #28a745;
+            --error-color: #dc3545;
+        }
 
-body {
-  margin: 0;
-  font-family: var(--font-family);
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color var(--transition-duration), color var(--transition-duration);
-}
+        /* --- Themes --- */
+        .theme-dark-blue {
+            --primary-bg: #2c3e50;
+            --secondary-bg: #34495e;
+            --accent-color: #3498db;
+            --accent-light: #5dade2;
+            --text-color: #ecf0f1;
+            --text-light: #bdc3c7;
+            --border-color: #4a667b;
+            --header-bg: linear-gradient(to right, #34495e, #2c3e50);
+            --nav-item-hover: rgba(52, 152, 219, 0.2);
+            --active-nav-item: var(--accent-color);
+            --button-bg: var(--accent-color);
+            --button-hover: #2980b9;
+        }
+        .theme-green-forest {
+            --primary-bg: #e8f5e9;
+            --secondary-bg: #ffffff;
+            --accent-color: #388e3c;
+            --accent-light: #66bb6a;
+            --text-color: #1b5e20;
+            --text-light: #4caf50;
+            --border-color: #c8e6c9;
+            --header-bg: linear-gradient(to right, #388e3c, #2e7d32);
+            --nav-item-hover: rgba(56, 142, 60, 0.1);
+            --active-nav-item: var(--accent-light);
+            --button-bg: var(--accent-color);
+            --button-hover: #2e7d32;
+        }
+        .theme-red-passion {
+            --primary-bg: #fbe9e7;
+            --secondary-bg: #ffffff;
+            --accent-color: #d32f2f;
+            --accent-light: #e57373;
+            --text-color: #b71c1c;
+            --text-light: #ef5350;
+            --border-color: #ffcdd2;
+            --header-bg: linear-gradient(to right, #d32f2f, #c62828);
+            --nav-item-hover: rgba(211, 47, 47, 0.1);
+            --active-nav-item: var(--accent-light);
+            --button-bg: var(--accent-color);
+            --button-hover: #c62828;
+        }
+        .theme-purple-haze {
+            --primary-bg: #f3e5f5;
+            --secondary-bg: #ffffff;
+            --accent-color: #7b1fa2;
+            --accent-light: #ba68c8;
+            --text-color: #4a148c;
+            --text-light: #9c27b0;
+            --border-color: #e1bee7;
+            --header-bg: linear-gradient(to right, #7b1fa2, #6a1b9a);
+            --nav-item-hover: rgba(123, 31, 162, 0.1);
+            --active-nav-item: var(--accent-light);
+            --button-bg: var(--accent-color);
+            --button-hover: #6a1b9a;
+        }
+        .theme-orange-sunset {
+            --primary-bg: #fff3e0;
+            --secondary-bg: #ffffff;
+            --accent-color: #f57c00;
+            --accent-light: #ffb74d;
+            --text-color: #e65100;
+            --text-light: #fb8c00;
+            --border-color: #ffe0b2;
+            --header-bg: linear-gradient(to right, #f57c00, #ef6c00);
+            --nav-item-hover: rgba(245, 124, 0, 0.1);
+            --active-nav-item: var(--accent-light);
+            --button-bg: var(--accent-color);
+            --button-hover: #ef6c00;
+        }
+        .theme-grey-steel {
+            --primary-bg: #eceff1;
+            --secondary-bg: #ffffff;
+            --accent-color: #546e7a;
+            --accent-light: #90a4ae;
+            --text-color: #263238;
+            --text-light: #455a64;
+            --border-color: #cfd8dc;
+            --header-bg: linear-gradient(to right, #546e7a, #455a64);
+            --nav-item-hover: rgba(84, 110, 122, 0.1);
+            --active-nav-item: var(--accent-light);
+            --button-bg: var(--accent-color);
+            --button-hover: #455a64;
+        }
+        /* Add more themes here if needed, following the same pattern */
+        /* For brevity, I'll restrict to a few distinct ones for now */
 
-/* Общие стили остаются без изменений (можете их оставить или адаптировать под новый дизайн) */
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            background: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            background-image: var(--background-image, none);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
+        .container {
+            display: flex;
+            flex-grow: 1;
+            max-width: 1400px;
+            margin: 20px auto;
+            background: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
 
-/* Хедер */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #222;
-  transition: background-color var(--transition-duration);
-}
-.header-left, .header-right {
-  display: flex;
-  align-items: center;
-}
-.logo h2 {
-  margin: 0;
-  font-weight: normal;
-  color: var(--primary-color);
-}
-.main-menu {
-  display: flex;
-  margin-left: 20px;
-  flex-wrap: wrap;
-}
-.menu-item {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background-color var(--transition-duration);
-  margin-right: 5px;
-}
-.menu-item:hover, .menu-item.active {
-  background-color: #333;
-}
-.menu-icon {
-  margin-right: 8px;
-  font-size: 1.2em;
-}
-.header-right {
-  display: flex;
-  align-items: center;
-}
-.user-info {
-  margin-right: 10px;
-}
-.btn-icon {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.2em;
-  cursor: pointer;
-  margin-left: 10px;
-  transition: color 0.3s;
-}
-.btn-icon:hover {
-  color: var(--accent-color);
-}
-.notification-bell {
-  position: relative;
-  font-size: 1.5em;
-  cursor: pointer;
-  margin-left: 20px;
-  transition: color 0.3s;
-}
-.notification-bell:hover {
-  color: var(--accent-color);
-}
-.notification-count {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: red;
-  color: #fff;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 0.8em;
-}
+        header {
+            background: var(--header-bg);
+            color: #ffffff;
+            padding: 20px 40px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
 
-/* Контент */
-.content {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  background-color: #1e1e1e;
-  transition: background-color 0.3s;
-}
-.page {
-  display: none;
-  opacity: 0;
-  transition: opacity var(--transition-duration);
-}
-.page.active {
-  display: block;
-  opacity: 1;
-}
-.page-title {
-  font-size: 1.8em;
-  margin-bottom: 20px;
-  color: var(--primary-color);
-}
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 500;
+        }
 
-/* Новые стили для блока "Информация о подключении" */
-.connection-info {
-  background-color: #2a2a2a;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-.connection-info h3 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: var(--accent-color);
-}
-.connection-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
-}
+        nav {
+            width: 250px;
+            background: var(--secondary-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+            flex-shrink: 0;
+        }
 
-/* Остальные стили для виджетов, карт, кнопок */
-.widgets-grid, .customization-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-}
-.widget {
-  background-color: #2a2a2a;
-  padding: 15px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  transition: background-color 0.3s, transform 0.3s;
-}
-.widget:hover {
-  background-color: #444;
-  transform: translateY(-2px);
-}
-.widget-icon {
-  font-size: 2em;
-}
-.widget-title {
-  font-weight: bold;
-  font-size: 1.2em;
-  margin-bottom: 5px;
-}
-.widget-value {
-  font-size: 1em;
-}
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-/* Маршрут по умолчанию */
-.default-route {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
+        nav ul li {
+            margin-bottom: 5px;
+        }
 
-/* Модальные окна */
-.modal {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-.modal-content {
-  background: #222;
-  border-radius: 8px;
-  padding: 20px;
-  max-height: 90%;
-  overflow-y: auto;
-}
+        nav ul li a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            border-left: 4px solid transparent;
+        }
 
-/* Кнопки внутри модалок */
-button {
-  cursor: pointer;
-}
-</style>
+        nav ul li a:hover {
+            background-color: var(--nav-item-hover);
+            color: var(--accent-color);
+        }
+
+        nav ul li a.active {
+            background-color: var(--nav-item-hover);
+            border-left-color: var(--active-nav-item);
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+        }
+
+        h2 {
+            color: var(--text-color);
+            font-size: 1.6em;
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--primary-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap; /* Для небольших экранов */
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-group label {
+            flex: 0 0 180px; /* Фиксированная ширина для label */
+            font-weight: 400;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        .form-group .control {
+            flex: 1;
+            min-width: 200px; /* Минимальная ширина для элементов управления */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-family: var(--font-family);
+            font-size: 0.9em;
+            color: var(--text-color);
+            background: var(--secondary-bg);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: var(--accent-light);
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--accent-color);
+        }
+
+        input:focus + .toggle-slider {
+            box-shadow: 0 0 1px var(--accent-color);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: var(--button-bg);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .status-message.success {
+            background-color: #e6ffed;
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+        }
+
+        .status-message.error {
+            background-color: #ffe6e6;
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+        }
+
+        /* Customization Section Styles */
+        .theme-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .theme-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        .theme-box:hover {
+            transform: translateY(-2px);
+        }
+        .theme-box.selected {
+            border-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: border-color 0.2s ease;
+        }
+        .upload-area:hover {
+            border-color: var(--accent-color);
+        }
+        .upload-area input[type="file"] {
+            display: none;
+        }
+        .upload-area p {
+            margin: 0;
+            color: var(--text-light);
+        }
+        .file-preview {
+            margin-top: 10px;
+            color: var(--text-color);
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .file-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 5px;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInModal 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: var(--secondary-bg);
+            margin: auto;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: var(--accent-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+                margin: 10px;
+            }
+            nav {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+            nav ul li {
+                margin-bottom: 0;
+            }
+            nav ul li a {
+                padding: 10px 15px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            nav ul li a.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--active-nav-item);
+            }
+            .main-content {
+                padding: 20px;
+            }
+            .form-group label {
+                flex: 1 1 100%; /* Занимают всю ширину */
+                margin-bottom: 5px;
+            }
+            .form-group .control {
+                flex: 1 1 100%;
+            }
+            .action-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            button {
+                width: 100%;
+            }
+        }
+        @media (max-width: 576px) {
+            header {
+                padding: 15px 20px;
+            }
+            header h1 {
+                font-size: 1.5em;
+            }
+            .main-content {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.4em;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+            .card {
+                padding: 15px;
+            }
+            .card h3 {
+                font-size: 1.1em;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="theme-default">
+    <audio id="background-music" loop></audio>
 
-<!-- Аудио для теста -->
-<audio id="connectSound" src="assets/sounds/connect.mp3" preload="auto"></audio>
-<audio id="errorSound" src="assets/sounds/error.mp3" preload="auto"></audio>
-<audio id="buttonSound" src="assets/sounds/button.mp3" preload="auto"></audio>
-<button id="testButton">Тестировать звук</button>
+    <header>
+        <h1>SF-for Internet Distribution (SFID)</h1>
+        <p>Панель управления роутером</p>
+    </header>
 
-<!-- Заголовок -->
-<div class="header">
-  <div class="header-left">
-    <div class="logo">
-      <h2>SFID</h2>
-      <span>v1.1.9</span>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#wan" class="nav-link active" data-section="wan">WAN</a></li>
+                <li><a href="#lan" class="nav-link" data-section="lan">LAN</a></li>
+                <li><a href="#wifi" class="nav-link" data-section="wifi">Беспроводная сеть (Wi-Fi)</a></li>
+                <li><a href="#nat" class="nav-link" data-section="nat">NAT</a></li>
+                <li><a href="#routing" class="nav-link" data-section="routing">Маршрутизация</a></li>
+                <li><a href="#lan_switch" class="nav-link" data-section="lan_switch">Коммутатор LAN</a></li>
+                <li><a href="#ddns" class="nav-link" data-section="ddns">DDNS</a></li>
+                <li><a href="#igmp" class="nav-link" data-section="igmp">IGMP Proxy</a></li>
+                <li><a href="#security" class="nav-link" data-section="security">Безопасность</a></li>
+                <li><a href="#firewall" class="nav-link" data-section="firewall">Брандмауэр</a></li>
+                <li><a href="#peripherals" class="nav-link" data-section="peripherals">Периферия</a></li>
+                <li><a href="#system" class="nav-link" data-section="system">Система</a></li>
+                <li><a href="#diagnostics" class="nav-link" data-section="diagnostics">Диагностика и логирование</a></li>
+                <li><a href="#customization" class="nav-link" data-section="customization">Кастомизация интерфейса</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- WAN Section -->
+            <section id="wan" class="section active">
+                <h2>WAN (Wide Area Network)</h2>
+                <div class="card">
+                    <h3>Основные параметры WAN</h3>
+                    <p>Здесь вы можете настроить параметры подключения вашего роутера к интернету.</p>
+
+                    <div class="form-group">
+                        <label for="wan-enable">Включить WAN интерфейс:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="wan-enable" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Включение/отключение основного интернет-соединения)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wan-connection-type">Тип подключения:</label>
+                        <div class="control">
+                            <select id="wan-connection-type">
+                                <option value="dhcp">DHCP (Автоматически)</option>
+                                <option value="static">Статический IP</option>
+                                <option value="pppoe">PPPoE</option>
+                            </select>
+                            <span>(Выбор способа получения IP-адреса от провайдера)</span>
+                        </div>
+                    </div>
+
+                    <div id="wan-dhcp-options" class="wan-type-options card" style="display: block;">
+                        <p>Роутер автоматически получит IP-адрес и настройки от вашего провайдера.</p>
+                    </div>
+
+                    <div id="wan-static-options" class="wan-type-options card" style="display: none;">
+                        <h3>Настройки статического IP</h3>
+                        <div class="form-group">
+                            <label for="wan-ip-address">IP-адрес:</label>
+                            <div class="control">
+                                <input type="text" id="wan-ip-address" value="192.168.0.100">
+                                <span>(Ваш статический IP-адрес)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wan-subnet-mask">Маска подсети:</label>
+                            <div class="control">
+                                <input type="text" id="wan-subnet-mask" value="255.255.255.0">
+                                <span>(Маска подсети для вашего статического IP)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wan-gateway">Шлюз:</label>
+                            <div class="control">
+                                <input type="text" id="wan-gateway" value="192.168.0.1">
+                                <span>(IP-адрес шлюза провайдера)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wan-dns1">Основной DNS:</label>
+                            <div class="control">
+                                <input type="text" id="wan-dns1" value="8.8.8.8">
+                                <span>(Первичный DNS-сервер)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wan-dns2">Альтернативный DNS:</label>
+                            <div class="control">
+                                <input type="text" id="wan-dns2" value="8.8.4.4">
+                                <span>(Вторичный DNS-сервер, если основной недоступен)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="wan-pppoe-options" class="wan-type-options card" style="display: none;">
+                        <h3>Настройки PPPoE</h3>
+                        <div class="form-group">
+                            <label for="pppoe-username">Имя пользователя:</label>
+                            <div class="control">
+                                <input type="text" id="pppoe-username" value="user@isp">
+                                <span>(Логин для PPPoE-соединения)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pppoe-password">Пароль:</label>
+                            <div class="control">
+                                <input type="password" id="pppoe-password" value="password">
+                                <span>(Пароль для PPPoE-соединения)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wan-mtu">MTU:</label>
+                        <div class="control">
+                            <input type="number" id="wan-mtu" value="1500" min="576" max="1500">
+                            <span>(Максимальный размер пакета, обычно 1500 или 1492 для PPPoE)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="wan-vlan-enable">Включить VLAN:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="wan-vlan-enable">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Если ваш провайдер использует VLAN тегирование)</span>
+                        </div>
+                    </div>
+                    <div id="wan-vlan-settings" class="card" style="display: none;">
+                        <h3>Настройки VLAN</h3>
+                        <div class="form-group">
+                            <label for="wan-vlan-id">VLAN ID:</label>
+                            <div class="control">
+                                <input type="number" id="wan-vlan-id" value="100" min="1" max="4094">
+                                <span>(Идентификатор VLAN, предоставленный провайдером)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wan-vlan-priority">Приоритет VLAN:</label>
+                            <div class="control">
+                                <select id="wan-vlan-priority">
+                                    <option value="0">0 (Best Effort)</option>
+                                    <option value="1">1 (Background)</option>
+                                    <option value="2">2 (Spare)</option>
+                                    <option value="3">3 (Excellent Effort)</option>
+                                    <option value="4">4 (Controlled Load)</option>
+                                    <option value="5">5 (Video)</option>
+                                    <option value="6">6 (Voice)</option>
+                                    <option value="7">7 (Network Control)</option>
+                                </select>
+                                <span>(Приоритет пакетов в рамках VLAN)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('wan')">Сохранить настройки WAN</button>
+                    </div>
+                    <div id="wan-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- LAN Section -->
+            <section id="lan" class="section">
+                <h2>LAN (Local Area Network)</h2>
+                <div class="card">
+                    <h3>Настройки локальной сети</h3>
+                    <p>Управление IP-адресами устройств в вашей домашней или офисной сети.</p>
+
+                    <div class="form-group">
+                        <label for="lan-ip-address">IP-адрес роутера:</label>
+                        <div class="control">
+                            <input type="text" id="lan-ip-address" value="192.168.1.1">
+                            <span>(IP-адрес роутера в локальной сети)</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lan-subnet-mask">Маска подсети LAN:</label>
+                        <div class="control">
+                            <input type="text" id="lan-subnet-mask" value="255.255.255.0">
+                            <span>(Маска подсети для локальной сети)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dhcp-enable">Включить DHCP-сервер:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="dhcp-enable" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Автоматическая выдача IP-адресов устройствам)</span>
+                        </div>
+                    </div>
+                    <div id="dhcp-settings" class="card">
+                        <h3>Настройки DHCP-сервера</h3>
+                        <div class="form-group">
+                            <label for="dhcp-start-ip">Начальный IP-адрес:</label>
+                            <div class="control">
+                                <input type="text" id="dhcp-start-ip" value="192.168.1.100">
+                                <span>(Начало диапазона для выдачи IP)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dhcp-end-ip">Конечный IP-адрес:</label>
+                            <div class="control">
+                                <input type="text" id="dhcp-end-ip" value="192.168.1.254">
+                                <span>(Конец диапазона для выдачи IP)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dhcp-lease-time">Время аренды (мин):</label>
+                            <div class="control">
+                                <input type="number" id="dhcp-lease-time" value="1440" min="10" max="10080">
+                                <span>(Время, на которое выдается IP-адрес)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lan-vlan-enable">Включить VLAN для LAN:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="lan-vlan-enable">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Сегментация локальной сети с помощью VLAN)</span>
+                        </div>
+                    </div>
+                    <div id="lan-vlan-settings" class="card" style="display: none;">
+                        <h3>Управление VLAN для LAN</h3>
+                        <p>Здесь вы можете добавить новые VLAN и назначить их на порты.</p>
+                        <button>Добавить VLAN</button>
+                        <!-- Список VLAN здесь -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('lan')">Сохранить настройки LAN</button>
+                    </div>
+                    <div id="lan-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- Wi-Fi Section -->
+            <section id="wifi" class="section">
+                <h2>Беспроводная сеть (Wi-Fi)</h2>
+                <div class="card">
+                    <h3>Настройки 2.4GHz</h3>
+                    <div class="form-group">
+                        <label for="wifi-24-enable">Включить Wi-Fi 2.4GHz:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="wifi-24-enable" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="wifi-24-settings" class="card" style="display: block;">
+                        <div class="form-group">
+                            <label for="wifi-24-ssid">Имя сети (SSID):</label>
+                            <div class="control">
+                                <input type="text" id="wifi-24-ssid" value="SFID_Home_2.4GHz">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wifi-24-security">Безопасность:</label>
+                            <div class="control">
+                                <select id="wifi-24-security">
+                                    <option value="wpa2-aes">WPA2-PSK (AES)</option>
+                                    <option value="wpa2-wpa3">WPA2/WPA3 Mixed</option>
+                                    <option value="wpa3">WPA3-PSK</option>
+                                    <option value="none">Без защиты</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wifi-24-password">Пароль:</label>
+                            <div class="control">
+                                <input type="password" id="wifi-24-password" value="mysecurewifi">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wifi-24-channel">Канал:</label>
+                            <div class="control">
+                                <select id="wifi-24-channel">
+                                    <option value="auto">Авто</option>
+                                    <option value="1">1</option>
+                                    <option value="6">6</option>
+                                    <option value="11">11</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wifi-24-bandwidth">Ширина канала:</label>
+                            <div class="control">
+                                <select id="wifi-24-bandwidth">
+                                    <option value="20">20 МГц</option>
+                                    <option value="20-40">20/40 МГц</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wifi-24-power">Мощность передачи:</label>
+                            <div class="control">
+                                <input type="range" id="wifi-24-power" min="10" max="100" value="70"> <span>70%</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wifi-24-mac-filter">MAC-фильтрация:</label>
+                            <div class="control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="wifi-24-mac-filter">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span>(Разрешить/запретить доступ по MAC-адресам)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wifi-24-guest">Гостевая сеть:</label>
+                            <div class="control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="wifi-24-guest">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span>(Отдельная сеть для гостей)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('wifi')">Сохранить настройки Wi-Fi</button>
+                    </div>
+                    <div id="wifi-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- NAT Section -->
+            <section id="nat" class="section">
+                <h2>Трансляция сетевых адресов (NAT)</h2>
+                <div class="card">
+                    <h3>Управление NAT</h3>
+                    <div class="form-group">
+                        <label for="nat-enable">Включить NAT:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="nat-enable" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nat-type">Тип трансляции:</label>
+                        <div class="control">
+                            <select id="nat-type">
+                                <option value="masquerade">Masquerade (IP-маскарадинг)</option>
+                                <option value="one-to-one">Один к одному</option>
+                            </select>
+                            <span>(Masquerade для большинства домашних сетей)</span>
+                        </div>
+                    </div>
+                    <h3>Переадресация портов (Port Forwarding)</h3>
+                    <p>Настройка перенаправления входящих подключений на определенные устройства в вашей локальной сети.</p>
+                    <button>Добавить правило Port Forwarding</button>
+                    <!-- Список правил PF -->
+
+                    <h3>DMZ (Демилитаризованная зона)</h3>
+                    <div class="form-group">
+                        <label for="dmz-enable">Включить DMZ:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="dmz-enable">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Перенаправляет весь трафик на указанный IP-адрес)</span>
+                        </div>
+                    </div>
+                    <div id="dmz-settings" class="form-group card" style="display: none;">
+                        <label for="dmz-ip">IP-адрес DMZ хоста:</label>
+                        <div class="control">
+                            <input type="text" id="dmz-ip" value="192.168.1.10">
+                        </div>
+                    </div>
+
+                    <h3>UPnP (Universal Plug and Play)</h3>
+                    <div class="form-group">
+                        <label for="upnp-enable">Включить UPnP:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="upnp-enable" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Автоматически открывает порты для приложений)</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('nat')">Сохранить настройки NAT</button>
+                    </div>
+                    <div id="nat-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- Routing Section -->
+            <section id="routing" class="section">
+                <h2>Маршрутизация</h2>
+                <div class="card">
+                    <h3>Статические маршруты</h3>
+                    <p>Добавление фиксированных маршрутов для трафика, который должен идти по определенному пути.</p>
+                    <button>Добавить статический маршрут</button>
+                    <!-- Список статических маршрутов -->
+                    <h3>Динамическая маршрутизация</h3>
+                    <div class="form-group">
+                        <label for="rip-enable">Включить RIP:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="rip-enable">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Протокол для динамического обмена маршрутами)</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('routing')">Сохранить настройки Маршрутизации</button>
+                    </div>
+                    <div id="routing-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- LAN Switch Section -->
+            <section id="lan_switch" class="section">
+                <h2>Коммутатор LAN</h2>
+                <div class="card">
+                    <h3>Управление портами и VLAN коммутатора</h3>
+                    <p>Настройка работы физических портов роутера и их привязки к VLAN.</p>
+
+                    <div class="form-group">
+                        <label for="vlan-lan-switch-enable">Включить VLAN на коммутаторе:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="vlan-lan-switch-enable">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Позволяет создавать изолированные виртуальные сети)</span>
+                        </div>
+                    </div>
+                    <div id="vlan-lan-switch-settings" class="card" style="display: none;">
+                        <h3>Виртуальные локальные сети (VLAN)</h3>
+                        <button>Добавить VLAN</button>
+                        <!-- Таблица VLAN -->
+                        <h3>Настройка портов</h3>
+                        <p>Выберите порт для настройки его режима и принадлежности к VLAN.</p>
+                        <div class="form-group">
+                            <label for="port1-mode">Порт 1 Режим:</label>
+                            <div class="control">
+                                <select id="port1-mode">
+                                    <option value="access">Access (для конечных устройств)</option>
+                                    <option value="trunk">Trunk (для передачи нескольких VLAN)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="port1-vlan">Порт 1 VLAN ID:</label>
+                            <div class="control">
+                                <input type="number" id="port1-vlan" value="1" min="1" max="4094">
+                                <span>(VLAN ID, если режим Access)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="port1-speed">Порт 1 Скорость:</label>
+                            <div class="control">
+                                <select id="port1-speed">
+                                    <option value="auto">Авто</option>
+                                    <option value="100m">100 Мбит/с Full Duplex</option>
+                                    <option value="1g">1 Гбит/с Full Duplex</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('lan_switch')">Сохранить настройки Коммутатора</button>
+                    </div>
+                    <div id="lan_switch-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- DDNS Section -->
+            <section id="ddns" class="section">
+                <h2>DDNS (Dynamic DNS)</h2>
+                <div class="card">
+                    <h3>Настройка динамического DNS</h3>
+                    <p>Позволяет получить постоянное доменное имя для вашего роутера, даже если ваш публичный IP-адрес меняется.</p>
+
+                    <div class="form-group">
+                        <label for="ddns-enable">Включить DDNS:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="ddns-enable">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="ddns-settings" class="card" style="display: none;">
+                        <div class="form-group">
+                            <label for="ddns-provider">Выберите провайдера:</label>
+                            <div class="control">
+                                <select id="ddns-provider">
+                                    <option value="noip">No-IP</option>
+                                    <option value="dyndns">DynDNS</option>
+                                    <option value="freedns">FreeDNS</option>
+                                    <option value="custom">Пользовательский</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddns-hostname">Доменное имя:</label>
+                            <div class="control">
+                                <input type="text" id="ddns-hostname" value="myrouter.no-ip.biz">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddns-username">Имя пользователя:</label>
+                            <div class="control">
+                                <input type="text" id="ddns-username" value="myusername">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddns-password">Пароль/Ключ:</label>
+                            <div class="control">
+                                <input type="password" id="ddns-password" value="mypassword">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="ddns-update-interval">Интервал обновления (мин):</label>
+                            <div class="control">
+                                <input type="number" id="ddns-update-interval" value="5" min="1" max="60">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('ddns')">Сохранить настройки DDNS</button>
+                    </div>
+                    <div id="ddns-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- IGMP Proxy Section -->
+            <section id="igmp" class="section">
+                <h2>IGMP Proxy</h2>
+                <div class="card">
+                    <h3>Настройка IGMP Proxy для мультикаст трафика</h3>
+                    <p>Позволяет корректно передавать потоковое видео (IPTV) через роутер.</p>
+
+                    <div class="form-group">
+                        <label for="igmp-enable">Включить IGMP Proxy:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="igmp-enable" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="igmp-settings" class="card" style="display: block;">
+                        <div class="form-group">
+                            <label for="igmp-mode">Режим IGMP:</label>
+                            <div class="control">
+                                <select id="igmp-mode">
+                                    <option value="igmpv2">IGMPv2</option>
+                                    <option value="igmpv3">IGMPv3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="igmp-upstream-iface">Внешний интерфейс:</label>
+                            <div class="control">
+                                <select id="igmp-upstream-iface">
+                                    <option value="wan">WAN</option>
+                                    <option value="lan">LAN</option>
+                                </select>
+                                <span>(Интерфейс, через который роутер получает мультикаст)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="igmp-downstream-iface">Внутренний интерфейс:</label>
+                            <div class="control">
+                                <select id="igmp-downstream-iface">
+                                    <option value="lan">LAN</option>
+                                    <option value="wifi-24">Wi-Fi 2.4GHz</option>
+                                </select>
+                                <span>(Интерфейс, на который передается мультикаст)</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="igmp-fast-leave">Fast Leave:</label>
+                            <div class="control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="igmp-fast-leave">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span>(Позволяет клиентам быстрее отключаться от мультикаст групп)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('igmp')">Сохранить настройки IGMP Proxy</button>
+                    </div>
+                    <div id="igmp-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- Security Section -->
+            <section id="security" class="section">
+                <h2>Безопасность</h2>
+                <div class="card">
+                    <h3>Основные параметры безопасности</h3>
+                    <p>Настройка общих параметров безопасности для вашей сети.</p>
+                    <div class="form-group">
+                        <label for="spi-enable">Включить SPI (Stateful Packet Inspection):</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="spi-enable" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Повышает безопасность, отслеживая состояние сетевых соединений)</span>
+                        </div>
+                    </div>
+                    <h3>Фильтрация IP</h3>
+                    <p>Создание белых/черных списков IP-адресов для доступа к сети или ресурсам.</p>
+                    <div class="form-group">
+                        <label for="ip-filter-mode">Режим фильтрации IP:</label>
+                        <div class="control">
+                            <select id="ip-filter-mode">
+                                <option value="disable">Отключено</option>
+                                <option value="blacklist">Черный список</option>
+                                <option value="whitelist">Белый список</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button>Добавить IP-адрес в список</button>
+                    <!-- Таблица IP-адресов -->
+                    <h3>Родительский контроль</h3>
+                    <p>Ограничение доступа к сайтам или по времени для определенных устройств.</p>
+                    <div class="form-group">
+                        <label for="parental-control-enable">Включить родительский контроль:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="parental-control-enable">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button>Добавить правило родительского контроля</button>
+                    <!-- Список правил род. контроля -->
+
+                    <h3>Контроль доступа (ACL)</h3>
+                    <p>Более гибкое управление доступом на основе IP, MAC-адресов, портов и протоколов.</p>
+                    <button>Добавить правило контроля доступа</button>
+                    <!-- Список правил ACL -->
+
+                    <h3>VPN</h3>
+                    <p>Настройка VPN-сервера или VPN-клиента для защищенных соединений.</p>
+                    <div class="form-group">
+                        <label for="vpn-enable">Включить VPN-сервер:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="vpn-enable">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button>Настроить VPN-клиент</button>
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('security')">Сохранить настройки Безопасности</button>
+                    </div>
+                    <div id="security-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- Firewall Section -->
+            <section id="firewall" class="section">
+                <h2>Брандмауэр</h2>
+                <div class="card">
+                    <h3>Правила брандмауэра</h3>
+                    <p>Гибкая настройка правил, разрешающих или запрещающих сетевой трафик.</p>
+                    <div class="form-group">
+                        <label for="firewall-enable">Включить Брандмауэр:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="firewall-enable" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button>Добавить правило брандмауэра</button>
+                    <!-- Таблица правил брандмауэра -->
+
+                    <h3>Логи Брандмауэра</h3>
+                    <div class="form-group">
+                        <label for="firewall-logging">Ведение журналов трафика:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="firewall-logging" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <button>Просмотреть логи</button>
+                    <button>Экспорт логов</button>
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('firewall')">Сохранить настройки Брандмауэра</button>
+                    </div>
+                    <div id="firewall-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- Peripherals Section -->
+            <section id="peripherals" class="section">
+                <h2>Периферия</h2>
+                <div class="card">
+                    <h3>Подключенные устройства</h3>
+                    <p>Управление принтерами, сканерами и USB-устройствами, подключенными к роутеру.</p>
+
+                    <div class="form-group">
+                        <label>USB-устройства:</label>
+                        <div class="control">
+                            <p>Флешка (sda1), Принтер HP LaserJet (USB0)</p>
+                            <span>(Список обнаруженных USB-устройств)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="printer-sharing">Общий доступ к принтеру:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="printer-sharing" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="samba-sharing">SMB/CIFS файловый сервер:</label>
+                        <div class="control">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="samba-sharing">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span>(Предоставление общего доступа к USB-накопителям по сети)</span>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('peripherals')">Сохранить настройки Периферии</button>
+                    </div>
+                    <div id="peripherals-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- System Section -->
+            <section id="system" class="section">
+                <h2>Система</h2>
+                <div class="card">
+                    <h3>Мониторинг системы</h3>
+                    <p>Просмотр текущего состояния аппаратных ресурсов роутера.</p>
+                    <div class="form-group">
+                        <label>Загрузка CPU:</label>
+                        <div class="control"><span id="cpu-load">5%</span></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Память (свободно/всего):</label>
+                        <div class="control"><span id="memory-usage">128MB / 256MB</span></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Температура CPU:</label>
+                        <div class="control"><span id="cpu-temp">45&#8451;</span></div>
+                    </div>
+
+                    <h3>Обновление прошивки</h3>
+                    <p>Обновите программное обеспечение роутера для получения новых функций и исправлений безопасности.</p>
+                    <div class="upload-area" onclick="document.getElementById('firmware-upload').click()">
+                        <p>Нажмите или перетащите файл прошивки сюда</p>
+                        <input type="file" id="firmware-upload" accept=".bin, .img">
+                    </div>
+                    <div class="file-preview" id="firmware-file-preview" style="display: none;"></div>
+                    <button class="mt-3">Проверить обновления</button>
+                    <button class="mt-3">Обновить прошивку</button>
+
+                    <h3>Резервное копирование и восстановление</h3>
+                    <p>Создание и восстановление резервных копий конфигурации роутера.</p>
+                    <button id="backup-config">Создать резервную копию</button>
+                    <div class="upload-area" onclick="document.getElementById('restore-config').click()" style="margin-top: 10px;">
+                        <p>Нажмите или перетащите файл конфигурации для восстановления</p>
+                        <input type="file" id="restore-config" accept=".cfg, .bin">
+                    </div>
+                    <div class="file-preview" id="restore-file-preview" style="display: none;"></div>
+                    <button class="mt-3">Восстановить из файла</button>
+
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('system')">Применить системные настройки</button>
+                    </div>
+                    <div id="system-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- Diagnostics Section -->
+            <section id="diagnostics" class="section">
+                <h2>Диагностика и логирование</h2>
+                <div class="card">
+                    <h3>Журналы событий</h3>
+                    <p>Просмотр системных сообщений, событий безопасности и других логов.</p>
+                    <h4>Системные логи</h4>
+                    <pre style="background: #e9ecef; padding: 15px; border-radius: 5px; max-height: 200px; overflow-y: auto; font-size: 0.8em; color: #333;">
+[2023-10-27 10:30:01] INFO: WAN interface (eth0) acquired IP 192.168.0.100
+[2023-10-27 10:30:05] DHCP: Client 00:11:22:33:44:55 assigned IP 192.168.1.100
+[2023-10-27 10:30:10] WARNING: Failed login attempt from 192.168.1.5
+[2023-10-27 10:30:15] WIFI: SSID "SFID_Home_2.4GHz" broadcasted
+[2023-10-27 10:31:00] INFO: System load average: 0.15, 0.12, 0.10
+                    </pre>
+                    <button>Обновить логи</button>
+                    <button>Экспорт всех логов</button>
+
+                    <h3>Инструменты диагностики</h3>
+                    <p>Использование встроенных инструментов для проверки сетевых соединений.</p>
+                    <div class="form-group">
+                        <label for="ping-target">Цель Ping:</label>
+                        <div class="control">
+                            <input type="text" id="ping-target" value="google.com">
+                            <button onclick="runDiagnostic('ping')">Ping</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="traceroute-target">Цель Traceroute:</label>
+                        <div class="control">
+                            <input type="text" id="traceroute-target" value="google.com">
+                            <button onclick="runDiagnostic('traceroute')">Traceroute</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Результаты диагностики:</label>
+                        <div class="control">
+                            <pre id="diagnostic-results" style="background: #e9ecef; padding: 10px; border-radius: 5px; max-height: 150px; overflow-y: auto; font-size: 0.8em; color: #333;">
+Ожидание запуска диагностики...
+                            </pre>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('diagnostics')">Применить настройки Логирования</button>
+                    </div>
+                    <div id="diagnostics-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- Customization Section -->
+            <section id="customization" class="section">
+                <h2>Кастомизация интерфейса</h2>
+                <div class="card">
+                    <h3>Темы оформления (Цветовые схемы)</h3>
+                    <p>Выберите одну из предложенных тем, чтобы изменить внешний вид интерфейса.</p>
+                    <div class="theme-picker" id="theme-picker">
+                        <div class="theme-box default selected" style="background: linear-gradient(to bottom right, #007bff, #0056b3); background-color: #f0f4f8;" data-theme="default"></div>
+                        <div class="theme-box dark-blue" style="background: linear-gradient(to bottom right, #34495e, #2c3e50); background-color: #2c3e50;" data-theme="dark-blue"></div>
+                        <div class="theme-box green-forest" style="background: linear-gradient(to bottom right, #388e3c, #2e7d32); background-color: #e8f5e9;" data-theme="green-forest"></div>
+                        <div class="theme-box red-passion" style="background: linear-gradient(to bottom right, #d32f2f, #c62828); background-color: #fbe9e7;" data-theme="red-passion"></div>
+                        <div class="theme-box purple-haze" style="background: linear-gradient(to bottom right, #7b1fa2, #6a1b9a); background-color: #f3e5f5;" data-theme="purple-haze"></div>
+                        <div class="theme-box orange-sunset" style="background: linear-gradient(to bottom right, #f57c00, #ef6c00); background-color: #fff3e0;" data-theme="orange-sunset"></div>
+                        <div class="theme-box grey-steel" style="background: linear-gradient(to bottom right, #546e7a, #455a64); background-color: #eceff1;" data-theme="grey-steel"></div>
+                        <!-- Можно добавить еще 5 тем здесь -->
+                    </div>
+
+                    <h3>Загрузка своих обоев (фона)</h3>
+                    <p>Выберите изображение для использования в качестве фона интерфейса.</p>
+                    <div class="upload-area" onclick="document.getElementById('bg-image-upload').click()">
+                        <p>Нажмите или перетащите изображение сюда</p>
+                        <input type="file" id="bg-image-upload" accept="image/*">
+                    </div>
+                    <div class="file-preview" id="bg-image-preview" style="display: none;"></div>
+                    <button class="mt-3" onclick="removeBackgroundImage()">Убрать текущие обои</button>
+
+                    <h3>Загрузка фоновой музыки</h3>
+                    <p>Загрузите аудиофайл, который будет воспроизводиться на фоне.</p>
+                    <div class="upload-area" onclick="document.getElementById('bg-music-upload').click()">
+                        <p>Нажмите или перетащите аудиофайл сюда</p>
+                        <input type="file" id="bg-music-upload" accept="audio/*">
+                    </div>
+                    <div class="file-preview" id="bg-music-preview" style="display: none;"></div>
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label>Громкость музыки:</label>
+                        <div class="control">
+                            <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.5">
+                            <span id="volume-value">50%</span>
+                        </div>
+                    </div>
+                    <button class="mt-3" onclick="toggleMusicPlay()">Вкл/Выкл музыку</button>
+                    <button class="mt-3" onclick="removeBackgroundMusic()">Убрать фоновую музыку</button>
+
+                    <div class="action-buttons">
+                        <button onclick="saveSettings('customization')">Сохранить настройки Кастомизации</button>
+                    </div>
+                    <div id="customization-status" class="status-message" style="display: none;"></div>
+                </div>
+            </section>
+        </main>
     </div>
-    <nav>
-      <div class="menu-item active" data-page="dashboard">Панель управления</div>
-      <div class="menu-item" data-page="network">Сеть</div>
-      <div class="menu-item" data-page="wifi">Wi-Fi</div>
-      <div class="menu-item" data-page="firewall">Брандмауэр</div>
-      <div class="menu-item" data-page="vpn">VPN</div>
-      <div class="menu-item" data-page="qos">QoS</div>
-      <div class="menu-item" data-page="nas">USB/NAS</div>
-      <div class="menu-item" data-page="mobile">Моб. сети</div>
-      <div class="menu-item" data-page="iot">IoT</div>
-      <div class="menu-item" data-page="customization">Кастомизация</div>
-      <div class="menu-item" data-page="system">Система</div>
-    </nav>
-  </div>
-  <div class="header-right">
-    <div>Гость</div>
-    <button id="themeToggle" title="Переключить тему">🌙</button>
-    <div id="notificationBell">🔔<span class="notification-count">3</span></div>
-  </div>
-</div>
 
-<!-- Контент -->
-<div class="content">
-  <div class="content-wrapper">
-
-    <!-- Панель управления -->
-    <div class="page active" id="dashboard">
-      <h2 class="page-title">Панель управления SFID</h2>
-      
-      <!-- Информация о подключении -->
-      <div class="connection-info" id="connectionInfo">
-        <h3>Информация о подключении</h3>
-        <div class="connection-item"><strong>Статус GPON:</strong> <span id="gponStatus">Up(O5)</span></div>
-        <div class="connection-item"><strong>Интернет:</strong> <span id="internetStatus">Работает</span></div>
-        <div class="connection-item"><strong>IP адрес:</strong> <span id="ipAddress">Получается...</span></div>
-        <div class="connection-item"><strong>IP шлюз:</strong> <span id="gatewayIP">Получается...</span></div>
-        <div class="connection-item"><strong>Основной сервер DNS:</strong> <span id="primaryDNS">Получается...</span></div>
-        <div class="connection-item"><strong>Альтернативный сервер DNS:</strong> <span id="altDNS">Получается...</span></div>
-      </div>
-
-      <!-- Маршрут по умолчанию -->
-      <div class="section" style="margin-bottom:20px;">
-        <h3>Маршрут по умолчанию</h3>
-        <div class="default-route">
-          <select id="defaultRouteType">
-            <option value="internet">Интернет</option>
-            <option value="iptv">IPTV</option>
-            <option value="lan">Локальная сеть</option>
-          </select>
-          <button id="saveDefaultRoute" class="btn btn-primary">Сохранить</button>
+    <!-- Modals for Backup/Restore -->
+    <div id="backupRestoreModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('backupRestoreModal')">&times;</span>
+            <h2>Резервное копирование и восстановление</h2>
+            <p>Здесь вы можете создать полную резервную копию настроек роутера или восстановить их из ранее сохраненного файла.</p>
+            <div class="form-group">
+                <button onclick="performBackup()">Создать резервную копию настроек</button>
+            </div>
+            <div class="form-group">
+                <label for="restore-file">Файл для восстановления:</label>
+                <input type="file" id="restore-file" accept=".cfg">
+                <button onclick="performRestore()">Восстановить настройки</button>
+            </div>
+            <p class="status-message" id="backup-restore-status" style="display: none;"></p>
         </div>
-      </div>
-
-      <!-- Остальные виджеты остаются без изменений -->
-      <div class="widgets-grid">
-        <div class="widget"><div class="widget-icon">🌐</div><div class="widget-content"><div class="widget-title">Сетевое подключение</div><div class="widget-value">Активно</div></div></div>
-        <div class="widget"><div class="widget-icon">📶</div><div class="widget-content"><div class="widget-title">Wi-Fi сеть</div><div class="widget-value">SFID-Network</div></div></div>
-        <div class="widget"><div class="widget-icon">🛡️</div><div class="widget-content"><div class="widget-title">Защита</div><div class="widget-value">Включена</div></div></div>
-        <div class="widget"><div class="widget-icon">⚡</div><div class="widget-content"><div class="widget-title">Скорость</div><div class="widget-value">100 Мбит/с</div></div></div>
-        <div class="widget"><div class="widget-icon">💾</div><div class="widget-content"><div class="widget-title">Память</div><div class="widget-value">64%</div></div></div>
-        <div class="widget"><div class="widget-icon">📱</div><div class="widget-content"><div class="widget-title">Устройства</div><div class="widget-value">8 онлайн</div></div></div>
-      </div>
     </div>
 
-    <!-- Настройки сети -->
-    <div class="page" id="network">
-      <h2 class="page-title">Настройки сети</h2>
-      <div class="section">
-        <h3>Общие параметры</h3>
-        <form id="networkForm">
-          <label>Тип подключения:
-            <select name="connection_type">
-              <option value="dhcp">Динамический IP (DHCP)</option>
-              <option value="static">Статический IP</option>
-            </select>
-          </label><br>
-          <label>IP-адрес:
-            <input type="text" name="ip_address" placeholder="192.168.1.2" />
-          </label><br>
-          <label>Маска подсети:
-            <input type="text" name="subnet_mask" placeholder="255.255.255.0" />
-          </label><br>
-          <label>Шлюз:
-            <input type="text" name="gateway" placeholder="192.168.1.1" />
-          </label><br>
-          <label>DNS-серверы:
-            <input type="text" name="dns" placeholder="8.8.8.8, 8.8.4.4" />
-          </label><br>
-          <button type="submit">Сохранить</button>
-        </form>
-      </div>
-    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            const wanConnectionType = document.getElementById('wan-connection-type');
+            const wanTypeOptions = document.querySelectorAll('.wan-type-options');
+            const wanVlanEnable = document.getElementById('wan-vlan-enable');
+            const wanVlanSettings = document.getElementById('wan-vlan-settings');
+            const dhcpEnable = document.getElementById('dhcp-enable');
+            const dhcpSettings = document.getElementById('dhcp-settings');
+            const lanVlanEnable = document.getElementById('lan-vlan-enable');
+            const lanVlanSettings = document.getElementById('lan-vlan-settings');
+            const dmzEnable = document.getElementById('dmz-enable');
+            const dmzSettings = document.getElementById('dmz-settings');
+            const ddnsEnable = document.getElementById('ddns-enable');
+            const ddnsSettings = document.getElementById('ddns-settings');
+            const igmpEnable = document.getElementById('igmp-enable');
+            const igmpSettings = document.getElementById('igmp-settings');
+            const vlanLanSwitchEnable = document.getElementById('vlan-lan-switch-enable');
+            const vlanLanSwitchSettings = document.getElementById('vlan-lan-switch-settings');
+            const wifi24Enable = document.getElementById('wifi-24-enable');
+            const wifi24Settings = document.getElementById('wifi-24-settings');
+            const wifi24Power = document.getElementById('wifi-24-power');
+            const volumeControl = document.getElementById('music-volume');
+            const volumeValueSpan = document.getElementById('volume-value');
+            const backgroundMusic = document.getElementById('background-music');
 
-    <!-- Настройки Wi-Fi -->
-    <div class="page" id="wifi">
-      <h2 class="page-title">Настройки Wi-Fi</h2>
-      <div class="section">
-        <h3>Основные параметры</h3>
-        <form id="wifiForm">
-          <label>Имя сети (SSID):
-            <input type="text" name="ssid" placeholder="МояWiFi" />
-          </label><br>
-          <label>Безопасность:
-            <select name="security">
-              <option value="wpa2">WPA2</option>
-              <option value="wpa3">WPA3</option>
-              <option value="none">Без защиты</option>
-            </select>
-          </label><br>
-          <label>Пароль:
-            <input type="password" name="password" placeholder="Введите пароль" />
-          </label><br>
-          <label>Канал:
-            <select name="channel">
-              <option value="1">Канал 1</option>
-              <option value="6">Канал 6</option>
-              <option value="11">Канал 11</option>
-            </select>
-          </label><br>
-          <button type="submit">Сохранить</button>
-        </form>
-      </div>
-    </div>
+            // --- Navigation ---
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    link.classList.add('active');
 
-    <!-- Брандмауэр -->
-    <div class="page" id="firewall">
-      <h2 class="page-title">Настройки брандмауэра</h2>
-      <div class="section">
-        <button id="editFirewallRulesBtn" class="btn btn-primary">Редактировать правила</button>
-        <h3>Правила фильтрации</h3>
-        <form>
-          <h4>Добавить правило</h4>
-          <label>Имя правила:
-            <input type="text" id="ruleName" placeholder="Введите имя правила" />
-          </label>
-          <button type="button" id="saveRuleBtn">Сохранить правило</button>
-          <label>Тип:
-            <select name="rule_type">
-              <option value="allow">Разрешить</option>
-              <option value="deny">Запретить</option>
-            </select>
-          </label><br>
-          <label>Протокол:
-            <select name="protocol">
-              <option value="tcp">TCP</option>
-              <option value="udp">UDP</option>
-              <option value="both">Оба</option>
-            </select>
-          </label><br>
-          <label>Порт:
-            <input type="number" name="port" placeholder="80" />
-          </label><br>
-          <label>IP-адрес источника:
-            <input type="text" name="source_ip" placeholder="Любой или IP" />
-          </label><br>
-          <button type="button" id="addFirewallRule">Добавить правило</button>
-        </form>
-        <h4>Текущие правила</h4>
-        <ul id="firewallRulesList"></ul>
-      </div>
-    </div>
+                    sections.forEach(section => section.classList.remove('active'));
+                    const targetSection = document.getElementById(link.dataset.section);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                    // Обновляем URL для навигации
+                    history.pushState(null, '', link.href);
+                });
+            });
 
-    <!-- VPN -->
-    <div class="page" id="vpn">
-      <h2 class="page-title">Настройки VPN</h2>
-      <div class="section" style="display:flex; flex-direction:column; gap:20px;">
-        <button id="createVPN" class="btn btn-primary">Создать VPN</button>
-        <h4>Существующие подключения</h4>
-        <ul id="vpnList"></ul>
-      </div>
-    </div>
+            // Handle initial section from URL hash
+            const initialHash = window.location.hash.substring(1);
+            if (initialHash) {
+                const initialLink = document.querySelector(`.nav-link[data-section="${initialHash}"]`);
+                if (initialLink) {
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    initialLink.classList.add('active');
+                    document.getElementById(initialHash).classList.add('active');
+                } else {
+                    document.getElementById('wan').classList.add('active'); // Fallback to WAN
+                    document.querySelector('.nav-link[data-section="wan"]').classList.add('active');
+                }
+            } else {
+                document.getElementById('wan').classList.add('active'); // Default to WAN
+                document.querySelector('.nav-link[data-section="wan"]').classList.add('active');
+            }
 
-    <!-- QoS -->
-    <div class="page" id="qos">
-      <h2 class="page-title">Настройки QoS</h2>
-      <div class="section">
-        <h3>Правила приоритета трафика</h3>
-        <button id="addQosRule" class="btn btn-primary">Добавить правило</button>
-        <h4>Текущие правила</h4>
-        <ul id="qosRules"></ul>
-      </div>
-    </div>
 
-    <!-- USB/NAS -->
-    <div class="page" id="nas">
-      <h2 class="page-title">USB/NAS</h2>
-      <div class="section">
-        <button id="connectUSB">Подключить USB</button>
-        <button id="configureNAS">Настроить NAS</button>
-        <h4>Общие параметры</h4>
-        <ul>
-          <li>Подключенные устройства: USB 1TB</li>
-          <li>Общий доступ: Включен</li>
-        </ul>
-      </div>
-    </div>
+            // --- Dynamic UI based on toggles/selects ---
+            const toggleElementVisibility = (checkbox, targetElement) => {
+                targetElement.style.display = checkbox.checked ? 'block' : 'none';
+            };
 
-    <!-- Мобильные сети -->
-    <div class="page" id="mobile">
-      <h2 class="page-title">Мобильные сети</h2>
-      <div class="section">
-        <form id="mobileForm">
-          <label>Слот SIM:
-            <select name="sim_slot">
-              <option value="1">SIM 1</option>
-              <option value="2">SIM 2</option>
-            </select>
-          </label><br>
-          <label>APN:
-            <input type="text" name="apn" placeholder="internet" />
-          </label><br>
-          <label>Тип сети:
-            <select name="network_type">
-              <option value="3g">3G</option>
-              <option value="4g">4G</option>
-              <option value="5g">5G</option>
-            </select>
-          </label><br>
-          <button type="submit">Подключить</button>
-        </form>
-      </div>
-    </div>
+            wanConnectionType.addEventListener('change', (e) => {
+                wanTypeOptions.forEach(opt => opt.style.display = 'none');
+                document.getElementById(`wan-${e.target.value}-options`).style.display = 'block';
+            });
+            // Initial state for WAN (trigger change)
+            wanConnectionType.dispatchEvent(new Event('change'));
 
-    <!-- IoT -->
-    <div class="page" id="iot">
-      <h2 class="page-title">IoT</h2>
-      <div class="section">
-        <button id="addIoTDeviceBtn">Добавить устройство</button>
-        <h4>Подключённые устройства</h4>
-        <ul id="connectedDevicesList">
-          <li data-status="active">Термостат — статус: активен <button class="toggle-status">Отключить</button></li>
-          <li data-status="active">Замок — статус: активен <button class="toggle-status">Отключить</button></li>
-        </ul>
-      </div>
-    </div>
+            wanVlanEnable.addEventListener('change', () => toggleElementVisibility(wanVlanEnable, wanVlanSettings));
+            toggleElementVisibility(wanVlanEnable, wanVlanSettings); // Initial state
 
-    <!-- Модальное окно для добавления нового устройства -->
-    <div id="addDeviceModal" class="modal" style="display:none;">
-      <div class="modal-content" style="width:400px; padding:20px;">
-        <h3>Добавить устройство</h3>
-        <form id="addDeviceForm">
-          <label>Название устройства:
-            <input type="text" id="deviceName" required />
-          </label><br/><br/>
-          <label>Пароль:
-            <input type="password" id="devicePassword" />
-          </label><br/><br/>
-          <label>Статус:
-            <select id="deviceStatus">
-              <option value="active">Активен</option>
-              <option value="inactive">Отключен</option>
-            </select>
-          </label><br/><br/>
-          <button type="submit">Добавить</button>
-          <button type="button" id="closeAddDevice">&times; Закрыть</button>
-        </form>
-      </div>
-    </div>
+            dhcpEnable.addEventListener('change', () => toggleElementVisibility(dhcpEnable, dhcpSettings));
+            toggleElementVisibility(dhcpEnable, dhcpSettings); // Initial state
 
-    <!-- Кастомизация -->
-<div class="page" id="customization">
-  <h2 class="page-title">Кастомизация интерфейса</h2>
-  <div class="section">
-    <h3>Персонализация</h3>
-    <!-- Цвет -->
-    <label>Выберите тему (цвет):</label>
-    <select id="colorThemeSelect">
-      <option value="#ffffff">Белая (светлая)</option>
-      <option value="#007bff">Синяя</option>
-      <option value="#222222">Темная</option>
-      <option value="#28a745">Зеленая</option>
-      <option value="#ff5733">Оранжевая</option>
-      <option value="#ffc107">Желтая</option>
-      <option value="#6f42c1">Пурпурная</option>
-    </select><br><br>
-    <!-- Обои -->
-    <label>Обои (фото):</label>
-    <input type="file" id="wallpaperUploader" accept="image/*" /><br><br>
-    <!-- Музыка -->
-    <label>Фоновая музыка:</label>
-    <input type="file" id="musicUploader" accept="audio/*" /><br><br>
-    <!-- Воспроизведение -->
-    <button id="playMusicBtn">▶️ Воспроизвести музыку</button>
-    <button id="stopMusicBtn">⏹️ Остановить музыку</button><br><br>
-    <!-- Остальные элементы без изменений... -->
-    <label>Цвет текста:</label>
-    <input type="color" id="customColorScheme" value="#007bff" /><br><br>
-    <label>Шрифт:</label>
-    <select id="customFontSelect">
-      <option value="Arial">Arial</option>
-      <option value="'Helvetica Neue', Helvetica">Helvetica Neue</option>
-      <option value="'Times New Roman', serif">Times New Roman</option>
-      <option value="'Courier New', monospace">Courier New</option>
-      <option value="Georgia">Georgia</option>
-    </select><br><br>
-    <button id="saveCustomizationBtn">Сохранить настройки</button>
-  </div>
-</div>
+            lanVlanEnable.addEventListener('change', () => toggleElementVisibility(lanVlanEnable, lanVlanSettings));
+            toggleElementVisibility(lanVlanEnable, lanVlanSettings); // Initial state
 
-    <!-- Настройки системы -->
-    <div class="page" id="system">
-      <h2 class="page-title">Настройки системы</h2>
-      <div class="section">
-        <h3>Общие параметры</h3>
-        <button type="button">Проверить обновления</button>
-        <button type="button">Обновить систему</button>
-        <button type="button">Резервное копирование</button>
-        <button type="button">Восстановление</button>
-        <br><br>
-        <label>Время и дата:
-          <input type="datetime-local" id="datetime" />
-        </label><br><br>
-        <button type="submit">Сохранить настройки</button>
-      </div>
-    </div>
+            dmzEnable.addEventListener('change', () => toggleElementVisibility(dmzEnable, dmzSettings));
+            toggleElementVisibility(dmzEnable, dmzSettings); // Initial state
 
-    <!-- Футер -->
-    <div class="footer">
-      <p>SF-for Internet Distribution (SFID) v1.1.9 | <a href="#" style="color:white;">Документация</a></p>
-    </div>
-  </div>
-</div>
+            ddnsEnable.addEventListener('change', () => toggleElementVisibility(ddnsEnable, ddnsSettings));
+            toggleElementVisibility(ddnsEnable, ddnsSettings); // Initial state
 
-<!-- Модальные окна для USB, NAS, VPN, QoS, Firewall -->
-<!-- USB -->
-<div id="usbModal" class="modal" style="display:none;">
-  <div class="modal-content" style="width:400px;">
-    <h3>Настройки USB-устройства</h3>
-    <div id="usbStatusModal">Нет подключенного устройства</div>
-    <button id="detectUSBModal">Обновить статус USB</button>
-    <form id="usbSettingsForm">
-      <label>Имя устройства:
-        <input type="text" name="usb_name" placeholder="USB-накопитель" />
-      </label><br/><br/>
-      <label>Общий доступ:
-        <select name="share">
-          <option value="enabled">Включен</option>
-          <option value="disabled">Выключен</option>
-        </select>
-      </label><br/><br/>
-      <button type="submit">Сохранить</button>
-      <button type="button" id="closeUsbModal">Закрыть</button>
-    </form>
-  </div>
-</div>
+            igmpEnable.addEventListener('change', () => toggleElementVisibility(igmpEnable, igmpSettings));
+            toggleElementVisibility(igmpEnable, igmpSettings); // Initial state
 
-<!-- NAS -->
-<div id="nasModal" class="modal" style="display:none;">
-  <div class="modal-content" style="width:400px;">
-    <h3>Настройки NAS</h3>
-    <form id="nasSettingsForm">
-      <label>Имя устройства:
-        <input type="text" name="nas_name" placeholder="Мой NAS" />
-      </label><br/><br/>
-      <label>Общий доступ:
-        <select name="nas_share">
-          <option value="enabled">Включен</option>
-          <option value="disabled">Выключен</option>
-        </select>
-      </label><br/><br/>
-      <label>Объем диска:
-        <input type="text" name="disk_size" placeholder="1TB" />
-      </label><br/><br/>
-      <button type="submit">Сохранить настройки</button>
-      <button type="button" id="closeNasModal">Закрыть</button>
-    </form>
-  </div>
-</div>
+            vlanLanSwitchEnable.addEventListener('change', () => toggleElementVisibility(vlanLanSwitchEnable, vlanLanSwitchSettings));
+            toggleElementVisibility(vlanLanSwitchEnable, vlanLanSwitchSettings); // Initial state
 
-<!-- VPN -->
-<div id="vpnModal" class="modal" style="display:none;">
-  <div class="modal-content" style="width:500px;">
-    <h3 id="vpnModalTitle">Добавить VPN</h3>
-    <form id="vpnForm">
-      <input type="hidden" id="vpnIndex" />
-      <label>Имя VPN:
-        <input type="text" id="vpnName" required />
-      </label><br/><br/>
-      <label>Пароль:
-        <input type="password" id="vpnPassword" />
-      </label><br/><br/>
-      <label>Подсеть:
-        <input type="text" id="vpnSubnet" placeholder="192.168.10.0/24" />
-      </label><br/><br/>
-      <label>IP-адрес:
-        <input type="text" id="vpnIp" placeholder="192.168.10.2" />
-      </label><br/><br/>
-      <label>Шлюз:
-        <input type="text" id="vpnGateway" placeholder="192.168.10.1" />
-      </label><br/><br/>
-      <label>DNS:
-        <input type="text" id="vpnDns" placeholder="8.8.8.8" />
-      </label><br/><br/>
-      <label>Прокси:
-        <input type="text" id="vpnProxy" placeholder="http://proxy" />
-      </label><br/><br/>
-      <label>Сертификация:
-        <select id="vpnAuthType">
-          <option value="none">Нет</option>
-          <option value="password">Пароль</option>
-          <option value="cert">Сертификат</option>
-        </select>
-      </label><br/><br/>
-      <button type="submit" class="btn btn-primary">Сохранить</button>
-      <button type="button" id="cancelVpn" class="btn btn-warning">Отмена</button>
-    </form>
-  </div>
-</div>
+            wifi24Enable.addEventListener('change', () => toggleElementVisibility(wifi24Enable, wifi24Settings));
+            toggleElementVisibility(wifi24Enable, wifi24Settings); // Initial state
 
-<!-- QoS -->
-<div id="qosModal" class="modal" style="display:none;">
-  <div class="modal-content" style="width:500px;">
-    <h3>Добавить правило QoS</h3>
-    <form id="qosForm">
-      <input type="hidden" id="qosIndex" />
-      <label>Устройство/приложение:
-        <input type="text" id="qosDevice" required />
-      </label><br/><br/>
-      <label>Приоритет:
-        <select id="qosPriority">
-          <option value="high">Высокий</option>
-          <option value="medium">Средний</option>
-          <option value="low">Низкий</option>
-        </select>
-      </label><br/><br/>
-      <button type="submit" class="btn btn-primary">Сохранить</button>
-      <button type="button" id="cancelQos" class="btn btn-warning">Отмена</button>
-    </form>
-  </div>
-</div>
+            wifi24Power.addEventListener('input', (e) => {
+                e.target.nextElementSibling.textContent = `${e.target.value}%`;
+            });
 
-<!-- Правила брандмауэра -->
-<div id="firewallRulesModal" class="modal" style="display:none;">
-  <div class="modal-content" style="width:600px;">
-    <h3>Редактировать правила брандмауэра</h3>
-    <button id="addFirewallRuleBtn" class="btn btn-success" style="margin-bottom:10px;">Добавить правило</button>
-    <div style="max-height:300px; overflow-y:auto;">
-      <table style="width:100%; border-collapse: collapse;">
-        <thead>
-          <tr>
-            <th style="border:1px solid #555; padding:8px;">Тип</th>
-            <th style="border:1px solid #555; padding:8px;">Действие</th>
-            <th style="border:1px solid #555; padding:8px;">Протокол</th>
-            <th style="border:1px solid #555; padding:8px;">Порт</th>
-            <th style="border:1px solid #555; padding:8px;">IP-адрес</th>
-            <th style="border:1px solid #555; padding:8px;">Действия</th>
-          </tr>
-        </thead>
-        <tbody id="firewallRulesTableBody"></tbody>
-      </table>
-    </div>
-    <br>
-    <button id="closeFirewallRulesBtn" class="btn btn-warning">Закрыть</button>
-  </div>
-</div>
+            // --- Status Message Utility ---
+            const showStatusMessage = (sectionId, message, type) => {
+                const statusDiv = document.getElementById(`${sectionId}-status`);
+                statusDiv.textContent = message;
+                statusDiv.className = `status-message ${type}`;
+                statusDiv.style.display = 'block';
+                statusDiv.style.opacity = '1';
+                setTimeout(() => {
+                    statusDiv.style.opacity = '0';
+                    statusDiv.addEventListener('transitionend', () => {
+                        statusDiv.style.display = 'none';
+                    }, { once: true });
+                }, 3000);
+            };
 
-<!-- Скрипт -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
+            // --- Save Settings Simulation ---
+            window.saveSettings = (sectionId) => {
+                // In a real app, you'd send data to a backend here.
+                // For simulation, we just show a success message.
+                showStatusMessage(sectionId, `Настройки в разделе "${document.querySelector(`[data-section="${sectionId}"]`).textContent}" успешно сохранены. Применяем изменения...`, 'success');
 
-  // --- Объявляем переменные ---
-  const notification = document.getElementById('notificationBell');
-  if (notification) {
-    notification.innerHTML = '🔔<span class="notification-count">3</span>';
-  }
+                // Simulate a slight delay for "applying changes"
+                setTimeout(() => {
+                    // This is where you would typically reload the page or part of it
+                    // For this demo, we'll just log and maybe refresh some UI element state
+                    console.log(`Settings for ${sectionId} saved and applied.`);
+                }, 1000);
+            };
 
-  // --- Воспроизведение тестового звука ---
-  const buttonSound = document.getElementById('buttonSound');
-  document.getElementById('testButton')?.addEventListener('click', () => {
-    if (buttonSound) buttonSound.play().catch(()=>{});
-  });
+            // --- Customization Section Logic ---
+            const themePicker = document.getElementById('theme-picker');
+            themePicker.addEventListener('click', (e) => {
+                const themeBox = e.target.closest('.theme-box');
+                if (themeBox) {
+                    document.querySelectorAll('.theme-box').forEach(box => box.classList.remove('selected'));
+                    themeBox.classList.add('selected');
+                    document.body.className = `theme-${themeBox.dataset.theme}`; // Apply theme class
+                    localStorage.setItem('sfid-theme', themeBox.dataset.theme);
+                }
+            });
 
-  // --- Переключение страниц ---
-  document.querySelectorAll('.menu-item').forEach(item => {
-    item.addEventListener('click', () => {
-      document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-      const pageId = item.getAttribute('data-page');
-      document.querySelectorAll('.page').forEach(p => {
-        p.id === pageId ? p.classList.add('active') : p.classList.remove('active');
-      });
-    });
-  });
+            // Apply saved theme on load
+            const savedTheme = localStorage.getItem('sfid-theme') || 'default';
+            document.body.className = `theme-${savedTheme}`;
+            const initialThemeBox = document.querySelector(`.theme-box[data-theme="${savedTheme}"]`);
+            if (initialThemeBox) {
+                initialThemeBox.classList.add('selected');
+            }
 
-  // --- Модалки USB и NAS ---
-  document.querySelector('#connectUSB')?.addEventListener('click', () => {
-    document.getElementById('usbModal').style.display = 'flex';
-    updateUsbStatusInModal();
-  });
-  document.querySelector('#configureNAS')?.addEventListener('click', () => {
-    document.getElementById('nasModal').style.display = 'flex';
-  });
-  document.querySelector('#closeUsbModal')?.addEventListener('click', () => {
-    document.getElementById('usbModal').style.display = 'none';
-  });
-  document.querySelector('#closeNasModal')?.addEventListener('click', () => {
-    document.getElementById('nasModal').style.display = 'none';
-  });
+            const bgImageUpload = document.getElementById('bg-image-upload');
+            const bgImagePreview = document.getElementById('bg-image-preview');
 
-  // --- Обновление статуса USB ---
-  function updateUsbStatusInModal() {
-    const usbStatusDiv = document.getElementById('usbStatusModal');
-    const hasUSB = Math.random() > 0.3;
-    if (usbStatusDiv) {
-      usbStatusDiv.innerText = hasUSB ? 'USB-устройство подключено: USB-накопитель 1TB' : 'Нет подключенного устройства';
-    }
-  }
+            bgImageUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        document.body.style.backgroundImage = `url('${e.target.result}')`;
+                        localStorage.setItem('sfid-bg-image', e.target.result);
+                        bgImagePreview.innerHTML = `<img src="${e.target.result}" alt="Предпросмотр обоев"><p>${file.name}</p>`;
+                        bgImagePreview.style.display = 'flex';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    removeBackgroundImage();
+                }
+            });
 
-  // --- Обработка форм USB и NAS ---
-  document.getElementById('usbSettingsForm')?.addEventListener('submit', e => {
-    e.preventDefault();
-    alert('Настройки USB сохранены!');
-    document.getElementById('usbModal').style.display = 'none';
-  });
-  document.getElementById('nasSettingsForm')?.addEventListener('submit', e => {
-    e.preventDefault();
-    alert('Настройки NAS сохранены!');
-    document.getElementById('nasModal').style.display = 'none';
-  });
+            const removeBackgroundImage = () => {
+                document.body.style.backgroundImage = 'none';
+                localStorage.removeItem('sfid-bg-image');
+                bgImagePreview.style.display = 'none';
+                bgImagePreview.innerHTML = '';
+                bgImageUpload.value = ''; // Reset file input
+            };
 
-  // --- IoT ---
-  document.getElementById('addIoTDeviceBtn')?.addEventListener('click', () => {
-    document.getElementById('addDeviceModal').style.display = 'flex';
-  });
-  document.querySelector('#closeAddDevice')?.addEventListener('click', () => {
-    document.getElementById('addDeviceModal').style.display = 'none';
-  });
+            // Load saved background image
+            const savedBgImage = localStorage.getItem('sfid-bg-image');
+            if (savedBgImage) {
+                document.body.style.backgroundImage = `url('${savedBgImage}')`;
+                bgImagePreview.innerHTML = `<img src="${savedBgImage}" alt="Предпросмотр обоев"><p>Пользовательские обои</p>`;
+                bgImagePreview.style.display = 'flex';
+            }
 
-  // Добавление устройства
-  document.getElementById('addDeviceForm')?.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = document.getElementById('deviceName')?.value.trim();
-    const password = document.getElementById('devicePassword')?.value.trim();
-    const status = document.getElementById('deviceStatus')?.value;
-    if (!name) { alert('Введите название устройства'); return; }
-    const li = document.createElement('li');
-    li.setAttribute('data-status', status);
-    li.innerHTML = `
-      ${name} — статус: ${status === 'active' ? 'активен' : 'отключен'}
-      <button class="toggle-status">${status === 'active' ? 'Отключить' : 'Активировать'}</button>
-    `;
-    document.getElementById('connectedDevicesList')?.appendChild(li);
-    attachToggleHandler(li.querySelector('.toggle-status'));
-    document.getElementById('addDeviceForm').reset();
-    document.getElementById('addDeviceModal').style.display = 'none';
-  });
-  function attachToggleHandler(btn) {
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-      const li = btn.parentElement;
-      const currentStatus = li.getAttribute('data-status');
-      if (currentStatus === 'active') {
-        li.setAttribute('data-status', 'inactive');
-        li.innerHTML = `
-          ${li.firstChild.textContent.trim().split('—')[0]} — статус: отключен
-          <button class="toggle-status">Активировать</button>
-        `;
-      } else {
-        li.setAttribute('data-status', 'active');
-        li.innerHTML = `
-          ${li.firstChild.textContent.trim().split('—')[0]} — статус: активен
-          <button class="toggle-status">Отключить</button>
-        `;
-      }
-      attachToggleHandler(li.querySelector('.toggle-status'));
-    });
-  }
-  document.querySelectorAll('.toggle-status').forEach(btn => {
-    attachToggleHandler(btn);
-  });
+            const bgMusicUpload = document.getElementById('bg-music-upload');
+            const bgMusicPreview = document.getElementById('bg-music-preview');
 
-  // --- Сохранение и загрузка настроек ---
-  function saveFormData(formId, storageKey) {
-    const form = document.getElementById(formId);
-    if (!form) return;
-    const data = {};
-    new FormData(form).forEach((value, key) => {
-      data[key] = value;
-    });
-    localStorage.setItem(storageKey, JSON.stringify(data));
-  }
-  function loadFormData(formId, storageKey) {
-    const dataStr = localStorage.getItem(storageKey);
-    if (!dataStr) return;
-    const data = JSON.parse(dataStr);
-    const form = document.getElementById(formId);
-    if (!form) return;
-    Object.keys(data).forEach(k => {
-      if (form.elements[k]) {
-        form.elements[k].value = data[k];
-      }
-    });
-  }
-  ['networkForm','wifiForm','qosForm','systemForm','mobileForm'].forEach(id => {
-    document.getElementById(id)?.addEventListener('submit', e => {
-      e.preventDefault();
-      saveFormData(id, id + 'Settings');
-      alert('Настройки сохранены');
-    });
-  });
-  ['networkForm','wifiForm','systemForm','mobileForm'].forEach(id => {
-    loadFormData(id, id + 'Settings');
-  });
+            bgMusicUpload.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        backgroundMusic.src = e.target.result;
+                        backgroundMusic.play();
+                        localStorage.setItem('sfid-bg-music', e.target.result);
+                        bgMusicPreview.innerHTML = `<p>${file.name} (играет)</p>`;
+                        bgMusicPreview.style.display = 'flex';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    removeBackgroundMusic();
+                }
+            });
 
-  // --- Восстановление устройств IoT ---
-  const devicesStr = localStorage.getItem('iotDevices');
-  if (devicesStr) {
-    const devices = JSON.parse(devicesStr);
-    const list = document.getElementById('connectedDevicesList');
-    if (list) {
-      list.innerHTML = '';
-      devices.forEach(dev => {
-        const li = document.createElement('li');
-        li.setAttribute('data-status', dev.status);
-        li.innerHTML = `
-          ${dev.name} — статус: ${dev.status === 'active' ? 'активен' : 'отключен'}
-          <button class="toggle-status">${dev.status === 'active' ? 'Отключить' : 'Активировать'}</button>
-        `;
-        list.appendChild(li);
-        attachToggleHandler(li.querySelector('.toggle-status'));
-      });
-    }
-  }
+            const toggleMusicPlay = () => {
+                if (backgroundMusic.paused) {
+                    backgroundMusic.play();
+                    bgMusicPreview.innerHTML = bgMusicPreview.innerHTML.replace('(пауза)', '(играет)');
+                    localStorage.setItem('sfid-music-playing', 'true');
+                } else {
+                    backgroundMusic.pause();
+                    bgMusicPreview.innerHTML = bgMusicPreview.innerHTML.replace('(играет)', '(пауза)');
+                    localStorage.setItem('sfid-music-playing', 'false');
+                }
+            };
 
-  // --- Работа с фоновым изображением и музыкой ---
-  const wallpaperInput = document.getElementById('wallpaperUploader');
-  const musicInput = document.getElementById('musicUploader');
-  wallpaperInput?.addEventListener('change', () => {
-    if (wallpaperInput.files.length > 0) {
-      const url = URL.createObjectURL(wallpaperInput.files[0]);
-      document.body.style.backgroundImage = `url(${url})`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundPosition = 'center';
-    }
-  });
-  const music = document.createElement('audio');
-  document.getElementById('playMusicBtn')?.addEventListener('click', () => {
-    if (musicInput && musicInput.files.length > 0) {
-      const url = URL.createObjectURL(musicInput.files[0]);
-      music.src = url;
-      music.play();
-    } else {
-      alert('Пожалуйста, выберите файл музыки');
-    }
-  });
-  document.getElementById('stopMusicBtn')?.addEventListener('click', () => {
-    music.pause();
-  });
+            const removeBackgroundMusic = () => {
+                backgroundMusic.pause();
+                backgroundMusic.src = '';
+                localStorage.removeItem('sfid-bg-music');
+                localStorage.removeItem('sfid-music-playing');
+                bgMusicPreview.style.display = 'none';
+                bgMusicPreview.innerHTML = '';
+                bgMusicUpload.value = ''; // Reset file input
+            };
 
-  // --- Работа с VPN ---
-  const vpnList = document.getElementById('vpnList');
-  let vpnData = [];
-  function renderVpnList() {
-    vpnList.innerHTML = '';
-    vpnData.forEach((vpn, index) => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <strong>${vpn.name}</strong> — Статус: ${vpn.connected ? 'подключено' : 'отключено'}
-        <button data-index="${index}" class="btn btn-primary connect-btn">${vpn.connected ? 'Отключить' : 'Подключить'}</button>
-        <button data-index="${index}" class="btn btn-warning edit-btn">Редактировать</button>
-        <button data-index="${index}" class="btn btn-danger delete-btn">Удалить</button>
-      `;
-      vpnList.appendChild(li);
-    });
-    // Обработчики
-    document.querySelectorAll('.connect-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-index'));
-        vpnData[idx].connected = !vpnData[idx].connected;
-        renderVpnList();
-      });
-    });
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-index'));
-        openVpnModal('edit', idx);
-      });
-    });
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-index'));
-        vpnData.splice(idx, 1);
-        renderVpnList();
-      });
-    });
-  }
+            volumeControl.addEventListener('input', (e) => {
+                backgroundMusic.volume = e.target.value;
+                volumeValueSpan.textContent = `${Math.round(e.target.value * 100)}%`;
+                localStorage.setItem('sfid-music-volume', e.target.value);
+            });
 
-  function openVpnModal(mode, index = null) {
-    const modal = document.getElementById('vpnModal');
-    const title = document.getElementById('vpnModalTitle');
-    const form = document.getElementById('vpnForm');
+            // Load saved background music and volume
+            const savedBgMusic = localStorage.getItem('sfid-bg-music');
+            if (savedBgMusic) {
+                backgroundMusic.src = savedBgMusic;
+                bgMusicPreview.innerHTML = `<p>Пользовательская музыка</p>`;
+                bgMusicPreview.style.display = 'flex';
+                // Only try to play if it was playing before or if user manually clicks play
+                if (localStorage.getItem('sfid-music-playing') === 'true') {
+                    backgroundMusic.play().catch(e => console.log("User must interact with the page to play audio."));
+                    bgMusicPreview.innerHTML = bgMusicPreview.innerHTML.replace('(пауза)', '') + '(играет)';
+                } else {
+                    bgMusicPreview.innerHTML = bgMusicPreview.innerHTML + '(пауза)';
+                }
+            }
+            const savedMusicVolume = localStorage.getItem('sfid-music-volume');
+            if (savedMusicVolume) {
+                backgroundMusic.volume = parseFloat(savedMusicVolume);
+                volumeControl.value = parseFloat(savedMusicVolume);
+                volumeValueSpan.textContent = `${Math.round(parseFloat(savedMusicVolume) * 100)}%`;
+            } else {
+                backgroundMusic.volume = 0.5; // Default volume
+            }
 
-    if (mode === 'add') {
-      title.innerText = 'Добавить VPN';
-      form.reset();
-      document.getElementById('vpnIndex').value = '';
-    } else if (mode === 'edit') {
-      title.innerText = 'Редактировать VPN';
-      const vpn = vpnData[index];
-      document.getElementById('vpnIndex').value = index;
-      document.getElementById('vpnName').value = vpn.name;
-      document.getElementById('vpnPassword').value = vpn.password;
-      document.getElementById('vpnSubnet').value = vpn.subnet;
-      document.getElementById('vpnIp').value = vpn.ip;
-      document.getElementById('vpnGateway').value = vpn.gateway;
-      document.getElementById('vpnDns').value = vpn.dns;
-      document.getElementById('vpnProxy').value = vpn.proxy;
-      document.getElementById('vpnAuthType').value = vpn.authType;
-    }
-    modal.style.display = 'flex';
+            // Mock Diagnostics:
+            window.runDiagnostic = (type) => {
+                const resultsDiv = document.getElementById('diagnostic-results');
+                resultsDiv.textContent = `Выполняется ${type}...`;
+                const target = document.getElementById(`${type}-target`).value;
+                setTimeout(() => {
+                    if (type === 'ping') {
+                        resultsDiv.textContent = `PING ${target} (1.2.3.4): 56(84) bytes of data.\n` +
+                                                  `64 bytes from 1.2.3.4: icmp_seq=1 ttl=120 time=2.12 ms\n` +
+                                                  `64 bytes from 1.2.3.4: icmp_seq=2 ttl=120 time=2.05 ms\n` +
+                                                  `64 bytes from 1.2.3.4: icmp_seq=3 ttl=120 time=2.18 ms\n` +
+                                                  `--- ${target} ping statistics ---\n` +
+                                                  `3 packets transmitted, 3 received, 0% packet loss, time 2002ms`;
+                    } else if (type === 'traceroute') {
+                        resultsDiv.textContent = `traceroute to ${target} (1.2.3.4), 30 hops max, 38 byte packets\n` +
+                                                  ` 1  router.local (192.168.1.1)  0.222 ms  0.187 ms  0.177 ms\n` +
+                                                  ` 2  isp-gateway (10.0.0.1)  5.123 ms  4.987 ms  5.012 ms\n` +
+                                                  ` 3  external-router (8.8.8.1)  12.345 ms  12.111 ms  12.456 ms\n` +
+                                                  `... (Skipping intermediate hops)\n` +
+                                                  `10  ${target} (1.2.3.4)  25.123 ms  24.987 ms  25.012 ms`;
+                    }
+                }, 1500);
+            };
 
-    // Обработка сабмита
-    form.onsubmit = (e) => {
-      e.preventDefault();
-      const vpnObj = {
-        name: document.getElementById('vpnName').value.trim(),
-        password: document.getElementById('vpnPassword').value.trim(),
-        subnet: document.getElementById('vpnSubnet').value.trim(),
-        ip: document.getElementById('vpnIp').value.trim(),
-        gateway: document.getElementById('vpnGateway').value.trim(),
-        dns: document.getElementById('vpnDns').value.trim(),
-        proxy: document.getElementById('vpnProxy').value.trim(),
-        authType: document.getElementById('vpnAuthType').value,
-        connected: false
-      };
-      const idxStr = document.getElementById('vpnIndex').value;
-      if (idxStr === '') {
-        vpnData.push(vpnObj);
-      } else {
-        vpnData[parseInt(idxStr)] = vpnObj;
-      }
-      renderVpnList();
-      modal.style.display = 'none';
-    };
-    // Отмена
-    document.getElementById('cancelVpn').onclick = () => {
-      modal.style.display = 'none';
-    };
-  }
+            // Mock System Monitoring (updates every few seconds)
+            const updateSystemMonitor = () => {
+                document.getElementById('cpu-load').textContent = `${(Math.random() * 10 + 5).toFixed(0)}%`;
+                document.getElementById('memory-usage').textContent = `${(128 + Math.random() * 50).toFixed(0)}MB / 256MB`;
+                document.getElementById('cpu-temp').textContent = `${(35 + Math.random() * 15).toFixed(0)}℃`;
+            };
+            setInterval(updateSystemMonitor, 5000); // Update every 5 seconds
+            updateSystemMonitor(); // Initial update
 
-  document.getElementById('createVPN')?.addEventListener('click', () => {
-    openVpnModal('add');
-  });
-  document.querySelectorAll('.modal').forEach(m => {
-    m.onclick = (e) => {
-      if (e.target === m) m.style.display = 'none';
-    };
-  });
+            // File Upload Previews (general function)
+            const setupFileUploadPreview = (inputId, previewId) => {
+                const input = document.getElementById(inputId);
+                const previewDiv = document.getElementById(previewId);
+                input.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        previewDiv.innerHTML = `<p>Выбран файл: <strong>${file.name}</strong> (${(file.size / 1024 / 1024).toFixed(2)} MB)</p>`;
+                        previewDiv.style.display = 'flex';
+                    } else {
+                        previewDiv.style.display = 'none';
+                        previewDiv.innerHTML = '';
+                    }
+                });
+            };
+            setupFileUploadPreview('firmware-upload', 'firmware-file-preview');
+            setupFileUploadPreview('restore-config', 'restore-file-preview');
 
-  // --- Работа с QoS ---
-  const qosList = document.getElementById('qosRules');
-  let qosRules = [];
-  function renderQosRules() {
-    qosList.innerHTML = '';
-    qosRules.forEach((rule, index) => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        ${rule.device} — приоритет: ${rule.priority}
-        <button data-index="${index}" class="btn btn-primary toggle-qos">${rule.active ? 'Отключить' : 'Включить'}</button>
-        <button data-index="${index}" class="btn btn-warning edit-qos">Редактировать</button>
-        <button data-index="${index}" class="btn btn-danger delete-qos">Удалить</button>
-      `;
-      qosList.appendChild(li);
-    });
-    // Обработчики
-    document.querySelectorAll('.toggle-qos').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-index'));
-        qosRules[idx].active = !qosRules[idx].active;
-        renderQosRules();
-      });
-    });
-    document.querySelectorAll('.edit-qos').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-index'));
-        openQosModal('edit', idx);
-      });
-    });
-    document.querySelectorAll('.delete-qos').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const idx = parseInt(btn.getAttribute('data-index'));
-        qosRules.splice(idx,1);
-        renderQosRules();
-      });
-    });
-  }
-  function openQosModal(mode, index = null) {
-    const modal = document.getElementById('qosModal');
-    const title = document.getElementById('qosModalTitle');
-    const form = document.getElementById('qosForm');
+            // Backup/Restore Modal functions
+            const backupRestoreModal = document.getElementById('backupRestoreModal');
+            const backupRestoreStatus = document.getElementById('backup-restore-status');
+            const restoreFileInput = document.getElementById('restore-file');
 
-    if (mode === 'add') {
-      title.innerText = 'Добавить правило QoS';
-      form.reset();
-      document.getElementById('qosIndex').value = '';
-    } else if (mode === 'edit') {
-      title.innerText = 'Редактировать правило QoS';
-      const rule = qosRules[index];
-      document.getElementById('qosIndex').value = index;
-      document.getElementById('qosDevice').value = rule.device;
-      document.getElementById('qosPriority').value = rule.priority;
-    }
-    modal.style.display = 'flex';
+            window.openModal = (modalId) => {
+                document.getElementById(modalId).style.display = 'flex';
+            };
 
-    // Обработка сабмита
-    form.onsubmit = (e) => {
-      e.preventDefault();
-      const ruleObj = {
-        device: document.getElementById('qosDevice').value.trim(),
-        priority: document.getElementById('qosPriority').value,
-        active: true
-      };
-      const idxStr = document.getElementById('qosIndex').value;
-      if (idxStr === '') {
-        qosRules.push(ruleObj);
-      } else {
-        qosRules[parseInt(idxStr)] = ruleObj;
-      }
-      renderQosRules();
-      modal.style.display = 'none';
-    };
-    // Отмена
-    document.getElementById('cancelQos').onclick = () => {
-      modal.style.display = 'none';
-    };
-  }
-  document.getElementById('addQosRule')?.addEventListener('click', () => {
-    openQosModal('add');
-  });
-  document.querySelectorAll('.modal').forEach(m => {
-    m.onclick = (e) => {
-      if (e.target === m) m.style.display = 'none';
-    };
-  });
-});
+            window.closeModal = (modalId) => {
+                document.getElementById(modalId).style.display = 'none';
+                backupRestoreStatus.style.display = 'none'; // Clear status on close
+            };
 
-// --- ВАЖНО: Получение реальных IP, шлюза и DNS ---
+            window.performBackup = () => {
+                backupRestoreStatus.className = 'status-message success';
+                backupRestoreStatus.textContent = 'Создание резервной копии...';
+                backupRestoreStatus.style.display = 'block';
+                setTimeout(() => {
+                    // Simulate file download (not actual download here)
+                    const tempLink = document.createElement('a');
+                    tempLink.href = 'data:text/plain;charset=utf-8,MockRouterConfigDataExample';
+                    tempLink.download = `SFID_config_backup_${new Date().toISOString().slice(0, 10)}.cfg`;
+                    document.body.appendChild(tempLink);
+                    tempLink.click();
+                    document.body.removeChild(tempLink);
+                    backupRestoreStatus.textContent = 'Резервная копия успешно создана.';
+                    setTimeout(() => backupRestoreStatus.style.display = 'none', 3000);
+                }, 1500);
+            };
 
-// Используем external API для получения публичного IP
-fetch('https://api.ipify.org?format=json')
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById('ipAddress').innerText = data.ip;
-  });
-
-// Получение DNS и шлюза — для этого используем WebRTC или другие методы, но из-за ограничений браузера — лучше установить статичные или заранее определенные значения для демонстрации
-// Ниже пример с статикой, можно заменить на API или рас
+            window.performRestore = () => {
+                if (restoreFileInput.files.length === 0) {
+                    backupRestoreStatus.className = 'status-message error';
+                    backupRestoreStatus.textContent = 'Пожалуйста, выберите файл конфигурации для восстановления.';
+                    backupRestoreStatus.style.display = 'block';
+                    return;
+                }
+                backupRestoreStatus.className = 'status-message success';
+                backupRestoreStatus.textContent = 'Восстановление конфигурации... Роутер будет перезагружен.';
+                backupRestoreStatus.style.display = 'block';
+                setTimeout(() => {
+                    // Simulate router reboot and configuration application
+                    alert('Конфигурация успешно восстановлена. Роутер перезагружается. Пожалуйста, подождите.');
+                    location.reload(); // Reload the page to simulate reboot
+                }, 2000);
+            };
+        });
+    </script>
+</body>
+</html>
